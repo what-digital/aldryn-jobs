@@ -234,17 +234,8 @@ class JobOpening(TranslatedAutoSlugifyMixin,
 
 @python_2_unicode_compatible
 class JobApplication(models.Model):
-    # FIXME: Gender is not the same as salutation.
-    MALE = 'male'
-    FEMALE = 'female'
-
-    SALUTATION_CHOICES = (
-        (MALE, _('Mr.')),
-        (FEMALE, _('Mrs.')),
-    )
-
     job_opening = models.ForeignKey(JobOpening, related_name='applications')
-    salutation = models.CharField(_('salutation'), max_length=20, blank=True, choices=SALUTATION_CHOICES, default=MALE)
+    salutation = models.CharField(_('salutation'), max_length=20, blank=True)
     first_name = models.CharField(_('first name'), max_length=20)
     last_name = models.CharField(_('last name'), max_length=20)
     email = models.EmailField(_('email'), max_length=254)

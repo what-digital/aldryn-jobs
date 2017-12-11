@@ -25,7 +25,7 @@ from parler.forms import TranslatableModelForm
 from .models import (
     JobApplication, JobApplicationAttachment, JobCategory, JobOpening,
     JobsConfig, JobListPlugin, JobCategoriesPlugin)
-from .utils import namespace_is_apphooked
+from .utils import namespace_is_apphooked, SALUTATION_CHOICES
 
 SEND_ATTACHMENTS_WITH_EMAIL = getattr(
     settings, 'ALDRYN_JOBS_SEND_ATTACHMENTS_WITH_EMAIL', True)
@@ -109,6 +109,9 @@ class JobOpeningAdminForm(TranslatableModelForm):
 
 class JobApplicationForm(forms.ModelForm):
     FIVE_MEGABYTES = 1024 * 1024 * 5
+
+    salutation = forms.ChoiceField(required=False, choices=SALUTATION_CHOICES())
+
     attachments = MultiFileField(
         max_num=getattr(settings, 'ALDRYN_JOBS_ATTACHMENTS_MAX_COUNT', 5),
         min_num=getattr(settings, 'ALDRYN_JOBS_ATTACHMENTS_MIN_COUNT', 0),
