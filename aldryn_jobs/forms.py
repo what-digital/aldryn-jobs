@@ -120,6 +120,13 @@ class JobApplicationForm(forms.ModelForm):
         required=False
     )
 
+    # Add Google ReCaptcha2 to protect the form input
+    from django.apps import apps
+    if apps.is_installed("snowpenguin.django.recaptcha2"):
+        from snowpenguin.django.recaptcha2.fields import ReCaptchaField
+        from snowpenguin.django.recaptcha2.widgets import ReCaptchaWidget
+        captcha = ReCaptchaField(widget=ReCaptchaWidget())
+
     def __init__(self, *args, **kwargs):
         self.job_opening = kwargs.pop('job_opening')
         if not hasattr(self, 'request') and kwargs.get('request') is not None:
