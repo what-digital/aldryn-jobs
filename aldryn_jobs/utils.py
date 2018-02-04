@@ -5,7 +5,7 @@ from os.path import splitext
 from django.core.urlresolvers import reverse, NoReverseMatch
 from django.utils.text import get_valid_filename as get_valid_filename_django
 from django.template.defaultfilters import slugify
-
+from django.conf import settings
 
 def get_valid_filename(s):
     """
@@ -34,3 +34,21 @@ def namespace_is_apphooked(namespace):
     except NoReverseMatch:
         return False
     return True
+
+
+def SALUTATION_CHOICES():
+    SALUTATIONS = getattr(settings, "ALDRYN_JOBS_SALUTATIONS", None)
+    if SALUTATIONS:
+        return SALUTATIONS
+
+    return ((None,'---'),
+            ('Mr','Mr'),
+            ('Ms','Ms'),
+            ('Mrs','Mrs'),
+            ('Miss','Miss'),
+            ('Dr','Dr'),
+            ('Prof','Prof'),
+            ('Rev','Rev'),
+            ('Lady','Lady'),
+            ('Sir','Sir'),
+            )

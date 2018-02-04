@@ -31,6 +31,8 @@ class JobOpeningsIndex(get_index_base()):
         return JobOpening
 
     def get_search_data(self, obj, language, request):
+        if language:
+            obj.set_current_language(language)
         text_bits = [strip_tags(obj.lead_in)]
         plugins = obj.content.cmsplugin_set.filter(language=language)
         for base_plugin in plugins:
