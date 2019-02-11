@@ -256,7 +256,7 @@ class JobOpening(TranslatedAutoSlugifyMixin,
         title = self.safe_translation_getter('title', language_code=language)
         text_bits.append(strip_tags(title))
 
-        lead_in = self.safe_translation_getter('title', language_code=language)
+        lead_in = self.safe_translation_getter('lead_in', language_code=language)
         text_bits.append(strip_tags(lead_in))
 
         category = self.category.safe_translation_getter('name', language_code=language)

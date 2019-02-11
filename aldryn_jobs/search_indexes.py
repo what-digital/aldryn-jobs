@@ -19,8 +19,7 @@ class JobOpeningsIndex(get_index_base()):
         return obj.publication_start
 
     def get_title(self, obj):
-        return obj.safe_translation_getter('title', str(obj.pk))
-        # return obj.title
+        return obj.title
 
     def get_index_kwargs(self, language):
         return {'translations__language_code': language}
