@@ -21,7 +21,7 @@ from aldryn_translation_tools.models import (
 
 from cms.models import CMSPlugin
 from cms.models.fields import PlaceholderField
-from cms.utils.i18n import force_language
+from cms.utils.i18n import force_language, get_current_language
 from distutils.version import LooseVersion
 from functools import partial
 from os.path import join as join_path
@@ -29,9 +29,11 @@ from parler.models import TranslatableModel, TranslatedFields
 from sortedm2m.fields import SortedManyToManyField
 from uuid import uuid4
 
+from aldryn_search.utils import strip_tags
+
 from .cms_appconfig import JobsConfig
 from .managers import JobOpeningsManager
-from .utils import get_valid_filename
+from .utils import get_valid_filename, get_plugin_index_data, get_request
 
 # NOTE: We need to use LooseVersion NOT StrictVersion as Aldryn sometimes uses
 # patched versions of Django with version numbers in the form: X.Y.Z.postN
@@ -196,6 +198,8 @@ class JobOpening(TranslatedAutoSlugifyMixin,
 
     def get_absolute_url(self, language=None):
         language = language or self.get_current_language()
+        if not language:
+            language = get_current_language()
         slug = self.safe_translation_getter('slug', language_code=language)
         category_slug = self.category.safe_translation_getter(
             'slug', language_code=language
@@ -230,6 +234,41 @@ class JobOpening(TranslatedAutoSlugifyMixin,
 
     def get_notification_emails(self):
         return self.category.get_notification_emails()
+
+    def get_search_data(self, language=None, request=None):
+        """
+        Provides an index for use with Haystack, or, for populating
+        Jobs.translations.search_data.
+        """
+        if not self.pk:
+            return ''
+        if language is None:
+            language = self.get_current_language()
+        if not language:
+            language = get_current_language()
+        if language:
+            self.set_current_language(language)
+        if request is None:
+            request = get_request(language=language)
+
+        text_bits = []
+
+        title = self.safe_translation_getter('title', language_code=language)
+        text_bits.append(strip_tags(title))
+
+        lead_in = self.safe_translation_getter('title', language_code=language)
+        text_bits.append(strip_tags(lead_in))
+
+        category = self.category.safe_translation_getter('name', language_code=language)
+        text_bits.append(strip_tags(category))
+
+        if self.content:
+            plugins = self.content.cmsplugin_set.filter(language=language)
+            for base_plugin in plugins:
+                plugin_text_content = ' '.join(get_plugin_index_data(base_plugin, request))
+                text_bits.append(plugin_text_content)
+
+        return ' '.join(text_bits)
 
 
 @python_2_unicode_compatible

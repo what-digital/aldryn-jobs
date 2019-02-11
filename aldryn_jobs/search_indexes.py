@@ -5,7 +5,7 @@ from __future__ import unicode_literals
 from django.conf import settings
 from django.template import RequestContext
 
-from aldryn_search.utils import get_index_base, strip_tags
+from aldryn_search.utils import get_index_base
 
 from .models import JobOpening
 
@@ -19,7 +19,8 @@ class JobOpeningsIndex(get_index_base()):
         return obj.publication_start
 
     def get_title(self, obj):
-        return obj.title
+        return obj.safe_translation_getter('title', str(obj.pk))
+        # return obj.title
 
     def get_index_kwargs(self, language):
         return {'translations__language_code': language}
@@ -31,15 +32,4 @@ class JobOpeningsIndex(get_index_base()):
         return JobOpening
 
     def get_search_data(self, obj, language, request):
-        if language:
-            obj.set_current_language(language)
-        text_bits = [strip_tags(obj.lead_in)]
-        plugins = obj.content.cmsplugin_set.filter(language=language)
-        for base_plugin in plugins:
-            instance, plugin_type = base_plugin.get_plugin_instance()
-            if instance is not None:
-                plugin_content = strip_tags(instance.render_plugin(
-                    context=RequestContext(request)))
-                text_bits.append(plugin_content)
-
-        return ' '.join(text_bits)
+        return obj.get_search_data(language=language, request=request)
