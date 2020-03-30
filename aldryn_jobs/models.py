@@ -214,7 +214,7 @@ class JobOpening(TranslatedAutoSlugifyMixin,
                 return reverse(
                     '{0}:job-opening-detail'.format(namespace),
                     kwargs=kwargs,
-                    current_app=self.category.app_config.namespace
+                    current_app=namespace
                 )
             except NoReverseMatch:
                 # FIXME: this is wrong, if have some problem in reverse
