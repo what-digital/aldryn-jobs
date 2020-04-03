@@ -109,7 +109,7 @@ class Migration(migrations.Migration):
                 ('publication_start', models.DateTimeField(verbose_name='published since', blank=True, null=True)),
                 ('publication_end', models.DateTimeField(verbose_name='published until', blank=True, null=True)),
                 ('can_apply', models.BooleanField(verbose_name='viewer can apply for the job?', default=True)),
-                ('ordering', models.IntegerField(verbose_name='ordering', default=0)),
+                # ('ordering', models.IntegerField(verbose_name='ordering', default=0)),
                 ('category', models.ForeignKey(verbose_name='category', related_name='jobs', to='aldryn_jobs.JobCategory')),
                 ('content', cms.models.fields.PlaceholderField(slotname='Job Opening Content', null=True, to='cms.Placeholder', editable=False)),
             ],

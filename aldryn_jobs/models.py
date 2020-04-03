@@ -98,8 +98,12 @@ class JobCategory(TranslatedAutoSlugifyMixin,
         blank=True
     )
     app_config = models.ForeignKey(
-        JobsConfig, null=True,
-        verbose_name=_('app configuration'), related_name='categories')
+        JobsConfig,
+        null=True,
+        verbose_name=_('app configuration'),
+        related_name='categories',
+        on_delete=models.CASCADE
+    )
 
     ordering = models.IntegerField(_('ordering'), default=0)
 
@@ -170,7 +174,12 @@ class JobOpening(TranslatedAutoSlugifyMixin,
     )
 
     content = PlaceholderField('Job Opening Content')
-    category = models.ForeignKey(JobCategory, verbose_name=_('category'), related_name='jobs')
+    category = models.ForeignKey(
+        JobCategory,
+        verbose_name=_('category'),
+        related_name='jobs',
+        on_delete=models.CASCADE
+    )
     created = models.DateTimeField(auto_now_add=True)
     is_active = models.BooleanField(_('active?'), default=True)
     publication_start = models.DateTimeField(_('published since'), null=True, blank=True)
@@ -248,7 +257,11 @@ class JobApplication(models.Model):
         (FEMALE, _('Mrs.')),
     )
 
-    job_opening = models.ForeignKey(JobOpening, related_name='applications')
+    job_opening = models.ForeignKey(
+        JobOpening,
+        related_name='applications',
+        on_delete=models.CASCADE
+    )
     salutation = models.CharField(_('salutation'), max_length=20, blank=True, choices=SALUTATION_CHOICES, default=MALE)
     first_name = models.CharField(_('first name'), max_length=20)
     last_name = models.CharField(_('last name'), max_length=20)
@@ -279,8 +292,12 @@ def cleanup_attachments(sender, instance, **kwargs):
 
 
 class JobApplicationAttachment(models.Model):
-    application = models.ForeignKey(JobApplication, related_name='attachments',
-                                    verbose_name=_('job application'))
+    application = models.ForeignKey(
+        JobApplication,
+        related_name='attachments',
+        verbose_name=_('job application'),
+        on_delete=models.CASCADE
+    )
     file = JobApplicationFileField()
 
 
@@ -294,8 +311,12 @@ class NewsletterSignup(models.Model):
     is_disabled = models.BooleanField(default=False)
     confirmation_key = models.CharField(max_length=40, unique=True)
 
-    app_config = models.ForeignKey(JobsConfig, verbose_name=_('app_config'),
-        null=True)
+    app_config = models.ForeignKey(
+        JobsConfig,
+        verbose_name=_('app_config'),
+        null=True,
+        on_delete=models.CASCADE
+    )
 
     objects = NewsletterSignupManager()
 
@@ -380,10 +401,15 @@ class NewsletterSignup(models.Model):
 
 @python_2_unicode_compatible
 class NewsletterSignupUser(models.Model):
-    signup = models.ForeignKey(NewsletterSignup, related_name='related_user')
+    signup = models.ForeignKey(
+        NewsletterSignup,
+        related_name='related_user',
+        on_delete=models.CASCADE
+    )
     user = models.ForeignKey(
         getattr(settings, 'AUTH_USER_MODEL', 'auth.User'),
-        related_name='newsletter_signup'
+        related_name='newsletter_signup',
+        on_delete=models.CASCADE
     )
 
     def get_full_name(self):
@@ -398,12 +424,18 @@ class JobListPlugin(CMSPlugin):
     """ Store job list for JobListPlugin. """
 
     cmsplugin_ptr = models.OneToOneField(
-        CMSPlugin, related_name='aldryn_jobs_joblistplugin', parent_link=True)
+        CMSPlugin,
+        related_name='aldryn_jobs_joblistplugin',
+        parent_link=True,
+        on_delete=models.CASCADE
+    )
 
     app_config = models.ForeignKey(
         JobsConfig,
         verbose_name=_('app configuration'), null=True,
-        help_text=_('Select appropriate app. configuration for this plugin.'))
+        help_text=_('Select appropriate app. configuration for this plugin.'),
+        on_delete=models.CASCADE
+    )
 
     jobopenings = SortedManyToManyField(
         JobOpening, blank=True,
@@ -442,12 +474,16 @@ class JobCategoriesPlugin(CMSPlugin):
 
     cmsplugin_ptr = models.OneToOneField(
         CMSPlugin, related_name='aldryn_jobs_jobcategoriesplugin',
-        parent_link=True)
+        parent_link=True,
+        on_delete=models.CASCADE
+    )
 
     app_config = models.ForeignKey(
         JobsConfig,
         verbose_name=_('app configuration'), null=True,
-        help_text=_('Select appropriate app. configuration for this plugin.'))
+        help_text=_('Select appropriate app. configuration for this plugin.'),
+        on_delete=models.CASCADE
+    )
 
     def __str__(self):
         return _('%s categories') % (self.app_config.namespace,)
@@ -466,7 +502,8 @@ class JobNewsletterRegistrationPlugin(CMSPlugin):
     app_config = models.ForeignKey(
         JobsConfig,
         verbose_name=_('app_config'),
-        null=True, help_text=_('Select appropriate add-on configuration for this plugin.')
+        null=True, help_text=_('Select appropriate add-on configuration for this plugin.'),
+        on_delete=models.CASCADE
     )
 
     mail_to_group = models.ManyToManyField(
