@@ -33,6 +33,11 @@ class JobsConfig(AppHookConfig):
     placeholder_jobs_list_bottom = PlaceholderField(
         'jobs_list_bottom', related_name='aldryn_jobs_list_bottom')
 
+    # Jobs plugins PHFs
+    placeholder_jobs_newsletter_registration = PlaceholderField(
+        'jobs_newsletter_registration',
+        related_name='aldryn_jobs_newsletter_registration')
+
     class Meta:
         verbose_name = _('Aldryn Jobs configuration')
         verbose_name_plural = _('Aldryn Jobs configurations')
