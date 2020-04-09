@@ -2,6 +2,8 @@
 from __future__ import unicode_literals
 
 from django.db import migrations, models
+import django.db.models.deletion
+
 import sortedm2m.fields
 
 
@@ -20,12 +22,12 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='jobcategoriesplugin',
             name='cmsplugin_ptr',
-            field=models.OneToOneField(parent_link=True, related_name='aldryn_jobs_jobcategoriesplugin', primary_key=True, serialize=False, to='cms.CMSPlugin'),
+            field=models.OneToOneField(parent_link=True, on_delete=django.db.models.deletion.CASCADE, related_name='aldryn_jobs_jobcategoriesplugin', primary_key=True, serialize=False, to='cms.CMSPlugin'),
         ),
         migrations.AlterField(
             model_name='joblistplugin',
             name='cmsplugin_ptr',
-            field=models.OneToOneField(parent_link=True, related_name='aldryn_jobs_joblistplugin', primary_key=True, serialize=False, to='cms.CMSPlugin'),
+            field=models.OneToOneField(parent_link=True, on_delete=django.db.models.deletion.CASCADE, related_name='aldryn_jobs_joblistplugin', primary_key=True, serialize=False, to='cms.CMSPlugin'),
         ),
         migrations.AlterField(
             model_name='joblistplugin',

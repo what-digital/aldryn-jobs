@@ -3,7 +3,7 @@
 from __future__ import unicode_literals
 
 from django.contrib.sites.shortcuts import get_current_site
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.db import models
 
 from django.db.models import Q
