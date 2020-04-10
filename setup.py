@@ -25,7 +25,7 @@ REQUIREMENTS = [
     'lxml',
     'pytz',
     'cssutils',
-    'Django<2.3',
+    'Django<3.0',
 ]
 
 CLASSIFIERS = [
