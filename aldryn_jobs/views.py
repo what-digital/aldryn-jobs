@@ -274,9 +274,11 @@ class ConfirmNewsletterSignup(TemplateResponseMixin, View):
             language=signup.default_language)
         # also do not use draft settings, only plugins from public pages
         # plugin page.pk should match page.get_public_object().pk
-        public_plugins = [plugin for plugin in plugins_base_qs if (
+        page_public_plugins = [plugin for plugin in plugins_base_qs if plugin.page and (
             plugin.page.get_public_object() and
             plugin.page.pk == plugin.page.get_public_object().pk)]
+        static_public_plugins = [plugin for plugin in plugins_base_qs if plugin.placeholder.static_public.exists()]
+        public_plugins = page_public_plugins or static_public_plugins
 
         public_plugins_groups = set(
             [group for plugin in
