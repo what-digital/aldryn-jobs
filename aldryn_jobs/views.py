@@ -476,8 +476,15 @@ class RegisterJobNewsletter(CreateView):
             recipient=recipient_email)
         # check for registered but not confirmed
         context['resend_confirmation'] = None
+        context['condition'] = None
         if recipient_email is not None and recipient_object:
             recipient_object = recipient_object[0]
+            if recipient_object.is_disabled:
+                context['condition'] = 'disabled'
+            elif not recipient_object.is_verified:
+                context['condition'] = 'not_confirmed'
+            elif recipient_object.is_verified:
+                context['condition'] = 'confirmed'
             context['resend_confirmation'] = reverse(
                 '{0}:resend_confirmation_link'.format(
                     self.app_config.namespace),
