@@ -274,9 +274,11 @@ class ConfirmNewsletterSignup(TemplateResponseMixin, View):
             language=signup.default_language)
         # also do not use draft settings, only plugins from public pages
         # plugin page.pk should match page.get_public_object().pk
-        public_plugins = [plugin for plugin in plugins_base_qs if (
+        page_public_plugins = [plugin for plugin in plugins_base_qs if plugin.page and (
             plugin.page.get_public_object() and
             plugin.page.pk == plugin.page.get_public_object().pk)]
+        static_public_plugins = [plugin for plugin in plugins_base_qs if plugin.placeholder.static_public.exists()]
+        public_plugins = page_public_plugins or static_public_plugins
 
         public_plugins_groups = set(
             [group for plugin in
@@ -474,8 +476,15 @@ class RegisterJobNewsletter(CreateView):
             recipient=recipient_email)
         # check for registered but not confirmed
         context['resend_confirmation'] = None
+        context['condition'] = None
         if recipient_email is not None and recipient_object:
             recipient_object = recipient_object[0]
+            if recipient_object.is_disabled:
+                context['condition'] = 'disabled'
+            elif not recipient_object.is_verified:
+                context['condition'] = 'not_confirmed'
+            elif recipient_object.is_verified:
+                context['condition'] = 'confirmed'
             context['resend_confirmation'] = reverse(
                 '{0}:resend_confirmation_link'.format(
                     self.app_config.namespace),
