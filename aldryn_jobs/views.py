@@ -275,8 +275,8 @@ class ConfirmNewsletterSignup(TemplateResponseMixin, View):
         # also do not use draft settings, only plugins from public pages
         # plugin page.pk should match page.get_public_object().pk
         page_public_plugins = [plugin for plugin in plugins_base_qs if plugin.page and (
-            plugin.page.get_public_object() and
-            plugin.page.pk == plugin.page.get_public_object().pk)]
+            plugin.page.get_public_object() and plugin.page.pk == plugin.page.get_public_object().pk
+        )]
         static_public_plugins = [plugin for plugin in plugins_base_qs if plugin.placeholder.static_public.exists()]
         public_plugins = page_public_plugins or static_public_plugins
 
@@ -406,8 +406,7 @@ class RegisterJobNewsletter(CreateView):
             namespace = getattr(resolver_match, 'namespace', '')
 
         if len(namespace) < 1:
-            if (self.request.current_page and
-                    self.request.current_page.application_namespace):
+            if (self.request.current_page and self.request.current_page.application_namespace):
                 namespace = self.request.current_page.application_namespace
 
         if len(namespace) < 1:

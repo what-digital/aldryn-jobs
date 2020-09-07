@@ -30,7 +30,7 @@ def namespace_is_apphooked(namespace):
     Returns True or False.
     """
     try:
-        reverse(DEFAULT_VIEW, current_app=namespace)
+        reverse('{0}:{1}'.format(namespace, DEFAULT_VIEW))
     except NoReverseMatch:
         return False
     return True

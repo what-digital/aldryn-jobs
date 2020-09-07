@@ -6,7 +6,7 @@ REQUIREMENTS = [
     'aldryn-apphooks-config>=0.4.0',
     'django-appdata>=0.1.4',
     'django-bootstrap3',
-    'django-cms>=3.4',
+    'django-cms>=3.7,<3.8',
     'django-emailit',
     'django-parler',
     'django-standard-form',
@@ -19,7 +19,7 @@ REQUIREMENTS = [
     # plan to adopt Aldryn Categories for this project in a release in
     # the very near future.
     'aldryn-categories',
-    'django-multiupload>=0.5.1',
+    'django-multiupload>=0.5.3',
     'django-sortedm2m>=1.2.2',
     'django-admin-sortable2>=0.5.2',
     'lxml',

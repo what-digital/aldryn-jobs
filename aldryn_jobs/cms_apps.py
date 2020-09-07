@@ -11,6 +11,7 @@ from cms.apphook_pool import apphook_pool
 
 class JobsApp(CMSConfigApp):
     name = _('Jobs')
+    app_name = 'aldryn_jobs'
     app_config = JobsConfig
 
     def get_urls(self, *args, **kwargs):
