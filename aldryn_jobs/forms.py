@@ -322,7 +322,7 @@ class AppConfigPluginFormMixin(object):
 
         # pre select app config if there is only one option
         if self.fields['app_config'].queryset.count() == 1:
-                self.fields['app_config'].empty_label = None
+            self.fields['app_config'].empty_label = None
 
     def clean_app_config(self):
         # since namespace is not a unique thing we need to validate it

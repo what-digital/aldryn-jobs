@@ -93,8 +93,9 @@ class JobsToolbar(CMSToolbar):
                     return False
             return True
 
-        if self.is_current_app and (can(['add', 'change'], 'jobopening') or
-                                    can(['add', 'change'], 'jobsconfig')):
+        if self.is_current_app and (
+            can(['add', 'change'], 'jobopening') or can(['add', 'change'], 'jobsconfig')
+        ):
             menu = self.toolbar.get_or_create_menu('jobs-app', _('Jobs'))
 
             # try to reuse resolver_match instead of doing double work with

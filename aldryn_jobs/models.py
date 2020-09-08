@@ -467,7 +467,7 @@ class JobListPlugin(CMSPlugin):
 
     def copy_relations(self, oldinstance):
         self.app_config = oldinstance.app_config
-        self.jobopenings = oldinstance.jobopenings.all()
+        self.jobopenings.set(oldinstance.jobopenings.all())
 
 
 @python_2_unicode_compatible
@@ -515,4 +515,4 @@ class JobNewsletterRegistrationPlugin(CMSPlugin):
             'Leave blank to disable notifications.<br/>'))
 
     def copy_relations(self, oldinstance):
-        self.mail_to_group = oldinstance.mail_to_group.all()
+        self.mail_to_group.set(oldinstance.mail_to_group.all())
