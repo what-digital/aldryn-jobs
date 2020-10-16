@@ -20,11 +20,11 @@ from aldryn_translation_tools.admin import (
 from cms.admin.placeholderadmin import PlaceholderAdminMixin, FrontendEditableAdminMixin
 
 from emailit.api import send_mail
-from parler.admin import TranslatableAdmin
+from parler.admin import TranslatableAdmin, TranslatableStackedInline
 
 
 from .forms import JobCategoryAdminForm, JobOpeningAdminForm
-from .models import JobApplication, JobCategory, JobOpening, JobsConfig, NewsletterSignup
+from .models import JobApplication, JobCategory, JobOpening, JobOpeningQuestion, JobsConfig, NewsletterSignup
 
 
 def _send_rejection_email(modeladmin, request, queryset, lang_code='',
@@ -92,13 +92,27 @@ class JobApplicationAdmin(PlaceholderAdminMixin, admin.ModelAdmin):
 
     fieldsets = [
         (_('Job Opening'), {
-            'fields': ['job_opening']
+            'fields': [('job_opening', 'status', 'filled_by_rahn')]
         }),
         (_('Personal information'), {
-            'fields': ['salutation', 'first_name', 'last_name', 'email']
+            'fields': [
+                ('salutation', 'first_name', 'last_name', 'email'),
+                ('street', 'city', 'zipcode'),
+                ('country', 'nationality', 'mobile_phone', 'valid_work_permit'),
+            ]
         }),
         (_('Cover letter & attachments'), {
-            'fields': ['cover_letter', 'get_attachment_address']
+            'fields': [
+                'cover_letter', 'cover_letter_file', 'get_attachment_address', 'merged_pdf'
+            ]
+        }),
+        (_('Questions and data'), {
+            'fields': [
+                'answer_1', 'answer_2', 'answer_3', 'expected_salary',
+                ('notice_period', 'how_hear_about_us', 'how_hear_about_us_other'),
+                'data_retention',
+                ('application_pool', 'abc_analysis', 'abc_analysis_explaination'),
+            ]
         })
     ]
 
@@ -120,11 +134,6 @@ class JobApplicationAdmin(PlaceholderAdminMixin, admin.ModelAdmin):
                 send_rejection_and_delete.title
             )
         return actions
-
-    def has_add_permission(self, request):
-        # Don't allow creation of "new" applications via admin-backend until
-        # it's properly implemented
-        return False
 
     def get_attachment_address(self, instance):
         attachment_link = '<a href="{address}">{address}</a>'
@@ -171,15 +180,21 @@ class JobApplicationInline(LinkedRelatedInlineMixin, admin.TabularInline):
         return False
 
 
+class JobOpeningQuestionInline(TranslatableStackedInline):
+    model = JobOpeningQuestion
+    fields = ['question']
+    max_num = 3
+
+
 class JobOpeningAdmin(PlaceholderAdminMixin,
                       AllTranslationsMixin,
                       SortableAdminMixin,
                       FrontendEditableAdminMixin,
                       TranslatableAdmin):
     form = JobOpeningAdminForm
-    list_display = ['__str__', 'category', 'num_applications', ]
+    list_display = ['__str__', 'category', 'num_applications']
     frontend_editable_fields = ('title', 'lead_in')
-    inlines = [JobApplicationInline, ]
+    inlines = [JobOpeningQuestionInline, JobApplicationInline]
     actions = ['send_newsletter_email']
 
     def get_fieldsets(self, request, obj=None):
@@ -188,10 +203,16 @@ class JobOpeningAdmin(PlaceholderAdminMixin,
                 'fields': ['title', 'slug', 'lead_in']
             }),
             (_('Options'), {
-                'fields': ['category', 'is_active', 'can_apply']
+                'fields': ['category', 'is_active', 'can_apply', 'country']
             }),
             (_('Publication period'), {
                 'fields': [('publication_start', 'publication_end')]
+            }),
+            (_('Vacancy filled'), {
+                'fields': [
+                    'vacancy_filled', 'vacancy_filled_date',
+                    'reminder_mail_sent', 'responsibles',
+                ]
             })
         ]
         return fieldsets

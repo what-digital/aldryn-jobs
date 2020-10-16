@@ -125,6 +125,7 @@ class JobOpeningAdminFormTestCase(JobsBaseTestCase):
         data = {
             'title': self.default_job_values['en']['title'],
             'slug': self.default_job_values['en']['slug'],
+            'country': 'germany',
         }
         form = JobOpeningAdminForm(data)
         self.assertFalse(form.is_valid())
@@ -141,6 +142,7 @@ class JobOpeningAdminFormTestCase(JobsBaseTestCase):
             'category': other_category.pk,
             'title': self.default_job_values['en']['title'],
             'slug': 'default-category-different-slug',
+            'country': 'germany',
         }
         form = JobOpeningAdminForm(data)
         self.assertTrue(form.is_valid())
@@ -162,6 +164,7 @@ class JobOpeningAdminFormTestCase(JobsBaseTestCase):
             'title': 'different title',
             'slug': self.default_job_values['en']['slug'],
             'category': other_category.pk,
+            'country': 'germany',
         }
         data.update(self.default_job_values['en'])
         form = JobOpeningAdminForm(data)
@@ -178,7 +181,8 @@ class JobOpeningAdminFormTestCase(JobsBaseTestCase):
         # form should allow unique names
         data = {
             'title': 'Unique title for opening',
-            'category': self.default_category.pk
+            'category': self.default_category.pk,
+            'country': 'germany',
         }
         form = JobOpeningAdminForm(data)
         self.assertTrue(form.is_valid())
@@ -194,7 +198,8 @@ class JobOpeningAdminFormTestCase(JobsBaseTestCase):
         data = {
             'title': 'Unique title for opening with slug',
             'slug': 'unique-title-for-opening-with-slug',
-            'category': self.default_category.pk
+            'category': self.default_category.pk,
+            'country': 'germany',
         }
         form = JobOpeningAdminForm(data)
         self.assertTrue(form.is_valid())

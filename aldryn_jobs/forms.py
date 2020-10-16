@@ -86,7 +86,8 @@ class JobOpeningAdminForm(TranslatableModelForm):
             'is_active',
             'can_apply',
             'publication_start',
-            'publication_end'
+            'publication_end',
+            'country',
         ]
 
     def __init__(self, *args, **kwargs):
