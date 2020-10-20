@@ -1,58 +1,54 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-# Translators:
-# Angelo Dini <finalangeljp@hotmail.com>, 2016
-# Daniela Streuli <daniela.streuli@divio.ch>, 2016
-# Gentian Mazrekaj <gentian.mazrekaj@divio.ch>, 2016
+#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Aldryn Jobs\n"
+"Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-10-20 15:06+0200\n"
-"PO-Revision-Date: 2016-08-23 20:13+0000\n"
-"Last-Translator: Paulo Alvarado <paulo.alvarado@divio.ch>\n"
-"Language-Team: German (http://www.transifex.com/divio/aldryn-jobs/language/"
-"de/)\n"
-"Language: de\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 
 #: aldryn_jobs/admin.py:48
 #, python-brace-format
 msgid "Successfully sent {0} rejection email(s)."
-msgstr "Erfolgreich gesendet {0} abgehlente E-Mail (s)."
+msgstr ""
 
 #: aldryn_jobs/admin.py:52
 #, python-brace-format
 msgid "Successfully deleted {0} application(s) and sent rejection email."
 msgstr ""
-"Erfolgreich Anwendung (en gelöscht {0} ) und abgelehnte E-Mail gesendet."
 
 #: aldryn_jobs/admin.py:66
 #, python-brace-format
 msgid "Send rejection e-mail {0}"
-msgstr "Sende abgelehnte Email  {0}"
+msgstr ""
 
 #: aldryn_jobs/admin.py:78
 #, python-brace-format
 msgid "Send rejection e-mail and delete application {0}"
-msgstr "Sende abgelehnte Email und lösche Applikation {0}."
+msgstr ""
 
 #: aldryn_jobs/admin.py:94
 msgid "Job Opening"
-msgstr "offene Stelle"
+msgstr ""
 
 #: aldryn_jobs/admin.py:97
 msgid "Personal information"
-msgstr "Persönliche Informationen"
+msgstr ""
 
 #: aldryn_jobs/admin.py:104
 msgid "Cover letter & attachments"
-msgstr "Begleitschreiben und Anhänge"
+msgstr ""
 
 #: aldryn_jobs/admin.py:109
 msgid "Questions and data"
@@ -60,27 +56,27 @@ msgstr ""
 
 #: aldryn_jobs/admin.py:149
 msgid "Attachments"
-msgstr "Anhänge"
+msgstr ""
 
 #: aldryn_jobs/admin.py:161 aldryn_jobs/admin.py:202
 msgid "Translatable fields"
-msgstr "Übersetzbare Felder"
+msgstr ""
 
 #: aldryn_jobs/admin.py:164
 msgid "Supervisors"
-msgstr "Vorgesetzte"
+msgstr ""
 
 #: aldryn_jobs/admin.py:167 aldryn_jobs/admin.py:205
 msgid "Options"
-msgstr "Optionen"
+msgstr ""
 
 #: aldryn_jobs/admin.py:208
 msgid "Publication period"
-msgstr "Veröffentlichungszeitraum"
+msgstr ""
 
 #: aldryn_jobs/admin.py:211
 msgid "Vacancy filled"
-msgstr "Stelle besetzt"
+msgstr ""
 
 #: aldryn_jobs/admin.py:244
 msgid "1 job was"
@@ -110,7 +106,7 @@ msgstr ""
 #: aldryn_jobs/templates/aldryn_jobs/emails/confirmation.body.txt:6
 msgctxt "aldryn-jobs"
 msgid "We will inform you about the progress."
-msgstr "Wir halten Sie auf dem Laufenden."
+msgstr ""
 
 #: aldryn_jobs/boilerplates/bootstrap3/templates/aldryn_jobs/emails/confirmation.body.txt:4
 #: aldryn_jobs/boilerplates/bootstrap3/templates/aldryn_jobs/emails/confirmation.subject.txt:2
@@ -119,7 +115,7 @@ msgstr "Wir halten Sie auf dem Laufenden."
 #, python-format
 msgctxt "aldryn-jobs"
 msgid "You have successfully applied for %(job)s."
-msgstr "Herzlichen Dank für Ihre Bewerbung auf die Stelle %(job)s."
+msgstr ""
 
 #: aldryn_jobs/boilerplates/bootstrap3/templates/aldryn_jobs/emails/newsletter_confirmation.body.html:7
 #: aldryn_jobs/boilerplates/bootstrap3/templates/aldryn_jobs/emails/newsletter_confirmation.body.txt:4
@@ -230,7 +226,7 @@ msgstr ""
 #, python-format
 msgctxt "aldryn-jobs"
 msgid "%(applicant)s has just applied for %(job)s."
-msgstr "%(applicant)s hat sich für die Stelle %(job)s beworben."
+msgstr ""
 
 #: aldryn_jobs/boilerplates/bootstrap3/templates/aldryn_jobs/emails/rejection_letter.body.html:5
 #: aldryn_jobs/templates/aldryn_jobs/emails/rejection_letter.body.html:5
@@ -241,8 +237,6 @@ msgid ""
 "        <p>Dear %(salutation)s %(first_name)s %(last_name)s</p>\n"
 "    "
 msgstr ""
-"\n"
-"<p>Liebe/r %(salutation)s %(first_name)s %(last_name)s</p>"
 
 #: aldryn_jobs/boilerplates/bootstrap3/templates/aldryn_jobs/emails/rejection_letter.body.html:9
 #: aldryn_jobs/templates/aldryn_jobs/emails/rejection_letter.body.html:9
@@ -268,23 +262,6 @@ msgid ""
 "        <p>Your HR team</p>\n"
 "    "
 msgstr ""
-"\n"
-"        <p>\n"
-"            Aufgrund der großen Anzahl eingegangener Bewerbungen, war es "
-"schwierig, eine engere Auswahl an Kandidatinnen und Kandidaten zu treffen. "
-"Nach sorgfältiger Abwägung haben wir uns jedoch entschieden, dass wir Ihre "
-"Bewerbung nicht weiter berücksichtigen können.\n"
-"            Sollten Sie weiterhin Interesse an einer Anstellung bei uns "
-"haben, finden Sie alle unsere Stellenangebote auf unserer Website, welche "
-"regelmässig aktualisiert wird. Wir bedauern, Ihnen keine positive Nachricht "
-"geben zu können, möchten jedoch die Gelegenheit nutzen, um Ihnen für Ihr "
-"Interesse zu danken und wünschen Ihnen viel Erfolg auf Ihrem weiteren "
-"Berufsweg.\n"
-"        </p>\n"
-"\n"
-"        <p>Freundliche Grüsse</p>\n"
-"        <p>Ihr HR-Team</p>\n"
-"    "
 
 #: aldryn_jobs/boilerplates/bootstrap3/templates/aldryn_jobs/emails/rejection_letter.body.txt:4
 #: aldryn_jobs/templates/aldryn_jobs/emails/rejection_letter.body.txt:4
@@ -294,8 +271,6 @@ msgid ""
 "\n"
 "Dear %(salutation)s %(first_name)s %(last_name)s"
 msgstr ""
-"\n"
-"Hallo %(salutation)s %(first_name)s %(last_name)s"
 
 #: aldryn_jobs/boilerplates/bootstrap3/templates/aldryn_jobs/emails/rejection_letter.body.txt:7
 #: aldryn_jobs/templates/aldryn_jobs/emails/rejection_letter.body.txt:7
@@ -313,49 +288,34 @@ msgid ""
 "Kind regards\n"
 "Your HR team"
 msgstr ""
-"Aufgrund der großen Anzahl eingegangener Bewerbungen, war es schwierig, eine "
-"engere Auswahl an Kandidatinnen und Kandidaten zu treffen. Nach sorgfältiger "
-"Abwägung haben wir uns jedoch entschieden, dass wir Ihre Bewerbung nicht "
-"weiter berücksichtigen können.\n"
-"\n"
-"Sollten Sie weiterhin Interesse an einer Anstellung bei uns haben, finden "
-"Sie alle unsere Stellenangebote auf unserer Website, welche regelmässig "
-"aktualisiert wird.\n"
-"\n"
-"Wir bedauern, Ihnen keine positive Nachricht geben zu können, möchten jedoch "
-"die Gelegenheit nutzen, um Ihnen für Ihr Interesse zu danken und wünschen "
-"Ihnen viel Erfolg auf Ihrem weiteren Berufsweg.\n"
-"\n"
-"Freundliche Grüsse\n"
-"Ihr HR-Team"
 
 #: aldryn_jobs/boilerplates/bootstrap3/templates/aldryn_jobs/emails/rejection_letter.subject.txt:2
 #: aldryn_jobs/templates/aldryn_jobs/emails/rejection_letter.subject.txt:2
 msgctxt "aldryn-jobs"
 msgid "Your application"
-msgstr "deine Bewerbung"
+msgstr ""
 
 #: aldryn_jobs/boilerplates/bootstrap3/templates/aldryn_jobs/includes/application.html:13
 #: aldryn_jobs/boilerplates/legacy/templates/aldryn_jobs/includes/jobs_application.html:5
 #: aldryn_jobs/templates/aldryn_jobs/includes/application.html:11
 msgid "Apply for this job"
-msgstr "Bewirb dich für diese Stelle"
+msgstr ""
 
 #: aldryn_jobs/boilerplates/bootstrap3/templates/aldryn_jobs/includes/application.html:18
 #: aldryn_jobs/boilerplates/bootstrap3/templates/aldryn_jobs/plugins/newsletter_registration.html:19
 #: aldryn_jobs/templates/aldryn_jobs/includes/application.html:14
 msgid "Submit"
-msgstr "Senden"
+msgstr ""
 
 #: aldryn_jobs/boilerplates/bootstrap3/templates/aldryn_jobs/includes/job.html:12
 #: aldryn_jobs/templates/aldryn_jobs/includes/job.html:12
 msgid "inactive"
-msgstr "untätig"
+msgstr ""
 
 #: aldryn_jobs/boilerplates/bootstrap3/templates/aldryn_jobs/jobs_detail.html:18
 #: aldryn_jobs/templates/aldryn_jobs/jobs_detail.html:7
 msgid "Back to Overview"
-msgstr "Zurück zur Übersicht"
+msgstr ""
 
 #: aldryn_jobs/boilerplates/bootstrap3/templates/aldryn_jobs/jobs_list.html:11
 #: aldryn_jobs/boilerplates/bootstrap3/templates/aldryn_jobs/jobs_list.html:14
@@ -366,7 +326,7 @@ msgstr "Zurück zur Übersicht"
 #: aldryn_jobs/templates/aldryn_jobs/plugins/categories_list.html:17
 #: aldryn_jobs/templates/aldryn_jobs/plugins/latest_entries.html:27
 msgid "No items available"
-msgstr "Keine Stellen vorhanden"
+msgstr ""
 
 #: aldryn_jobs/boilerplates/bootstrap3/templates/aldryn_jobs/newsletter/confirm.html:5
 msgid "After pushing confirm button you will receive jobs newsletter."
@@ -377,46 +337,24 @@ msgid "Confirm my email"
 msgstr ""
 
 #: aldryn_jobs/boilerplates/bootstrap3/templates/aldryn_jobs/newsletter/confirmation_resent.html:7
-#, fuzzy, python-format
-#| msgid ""
-#| "\n"
-#| "                Showing %(vacancies_count)s job opening\n"
-#| "            "
-#| msgid_plural ""
-#| "\n"
-#| "                Showing %(vacancies_count)s job openings\n"
-#| "            "
+#, python-format
 msgid ""
 "\n"
 "                Confirmation letter has been sent to %(email)s.\n"
 "            "
 msgstr ""
-"\n"
-"                Zeige %(vacancies_count)s offene Stelle\n"
-"            "
 
 #: aldryn_jobs/boilerplates/bootstrap3/templates/aldryn_jobs/newsletter/confirmation_resent.html:13
 msgid "Please confirm your E-mail in order to receive job newsletter."
 msgstr ""
 
 #: aldryn_jobs/boilerplates/bootstrap3/templates/aldryn_jobs/newsletter/confirmed.html:7
-#, fuzzy, python-format
-#| msgid ""
-#| "\n"
-#| "                Showing %(vacancies_count)s job opening\n"
-#| "            "
-#| msgid_plural ""
-#| "\n"
-#| "                Showing %(vacancies_count)s job openings\n"
-#| "            "
+#, python-format
 msgid ""
 "\n"
 "                Your email %(email)s is confirmed.\n"
 "            "
 msgstr ""
-"\n"
-"                Zeige %(vacancies_count)s offene Stelle\n"
-"            "
 
 #: aldryn_jobs/boilerplates/bootstrap3/templates/aldryn_jobs/newsletter/confirmed.html:13
 msgid "Now you will receive jobs newsletter."
@@ -494,47 +432,41 @@ msgid_plural ""
 "                Showing %(vacancies_count)s job openings\n"
 "            "
 msgstr[0] ""
-"\n"
-"                Zeige %(vacancies_count)s offene Stelle\n"
-"            "
 msgstr[1] ""
-"\n"
-"                Zeige %(vacancies_count)s offene Stellen\n"
-"            "
 
 #: aldryn_jobs/boilerplates/legacy/templates/aldryn_jobs/includes/jobs_items.html:11
 msgid "read more"
-msgstr "Weiterlesen"
+msgstr ""
 
 #: aldryn_jobs/boilerplates/legacy/templates/aldryn_jobs/includes/jobs_items.html:15
 #: aldryn_jobs/boilerplates/legacy/templates/aldryn_jobs/plugins/latest_entries.html:13
 msgid "There are currently no job openings."
-msgstr "Es gibt zurzeit keine offenen Stellen"
+msgstr ""
 
 #: aldryn_jobs/boilerplates/legacy/templates/aldryn_jobs/jobs_detail.html:19
 msgid "Back"
-msgstr "Zurück"
+msgstr ""
 
 #: aldryn_jobs/boilerplates/legacy/templates/aldryn_jobs/jobs_list.html:6
 #: aldryn_jobs/cms_apps.py:13 aldryn_jobs/cms_toolbars.py:99
 msgid "Jobs"
-msgstr "Stellen"
+msgstr ""
 
 #: aldryn_jobs/cms_appconfig.py:42
 msgid "Aldryn Jobs configuration"
-msgstr "Aldryn Jobs Konfiguration"
+msgstr ""
 
 #: aldryn_jobs/cms_appconfig.py:43
 msgid "Aldryn Jobs configurations"
-msgstr "Aldryn Jobs Konfiguration"
+msgstr ""
 
 #: aldryn_jobs/cms_menus.py:19
 msgid "Job Categories Menu"
-msgstr "Job Kategorien Menu"
+msgstr ""
 
 #: aldryn_jobs/cms_menus.py:47
 msgid "Job Openings Menu"
-msgstr "Offene Stellen Menu"
+msgstr ""
 
 #: aldryn_jobs/cms_plugins.py:38
 msgid ""
@@ -543,19 +475,14 @@ msgid ""
 "to use valid config. Also note that aldryn-jobs should be used at least once "
 "as an apphook for that config."
 msgstr ""
-"Ein Fehler ist aufgetreten bezüglich der konfiguration des Plugin: der "
-"ausgewählten \"job config\" ist nicht verfügbar. Bitte wechsle zum \"edit "
-"mode\" und ändere  die \"change plugin app_config\" Einstellungen sodass sie "
-"konfigurationen validiert sind. Beachte, dass aldryn-hobs mindestens einmal "
-"als Apphook-Seite konfiguriert ist."
 
 #: aldryn_jobs/cms_plugins.py:52
 msgid "Categories list"
-msgstr "Kategorieliste"
+msgstr ""
 
 #: aldryn_jobs/cms_plugins.py:60
 msgid "Job List"
-msgstr "Stellenliste"
+msgstr ""
 
 #: aldryn_jobs/cms_plugins.py:81
 msgid "Form for Newsletter"
@@ -563,50 +490,48 @@ msgstr ""
 
 #: aldryn_jobs/cms_toolbars.py:113
 msgid "Configure application"
-msgstr "Konfiguiere Applikation"
+msgstr ""
 
 #: aldryn_jobs/cms_toolbars.py:119
 msgid "Edit category"
-msgstr "Bearbeite Kategorie"
+msgstr ""
 
 #: aldryn_jobs/cms_toolbars.py:124
 msgid "Add new category"
-msgstr "Kategorie hinzufügen"
+msgstr ""
 
 #: aldryn_jobs/cms_toolbars.py:132
 msgid "Edit job opening"
-msgstr "Bearbeite offene Stelle"
+msgstr ""
 
 #: aldryn_jobs/cms_toolbars.py:134
 msgid "Add new job opening"
-msgstr "Erstelle eine offene Stelle."
+msgstr ""
 
 #: aldryn_jobs/cms_wizards.py:98
 msgid ""
 "Optional. If provided, will be added to the main body of the Opening content."
 msgstr ""
-"Optional. Falls vorhanden, wird dies zum \"main body\" der Stelleanzeige "
-"hinzugefügt."
 
 #: aldryn_jobs/cms_wizards.py:115 aldryn_jobs/cms_wizards.py:117
 msgid "Date Acceptable Formats: 2015-11-30, 11/30/2015, 11/30/15"
-msgstr "Akzeptable Datenformate: 2015-11-30, 11/30/2015, 11/30/15"
+msgstr ""
 
 #: aldryn_jobs/cms_wizards.py:153
 msgid "New job category"
-msgstr "Neue Job Kategorie"
+msgstr ""
 
 #: aldryn_jobs/cms_wizards.py:156
 msgid "Create a new job category."
-msgstr "Erstelle neue Job Kategorie."
+msgstr ""
 
 #: aldryn_jobs/cms_wizards.py:162
 msgid "New job opening"
-msgstr "Neue offene Stelle"
+msgstr ""
 
 #: aldryn_jobs/cms_wizards.py:165
 msgid "Create a new job opening."
-msgstr "Erstelle eine offene Stelle."
+msgstr ""
 
 #: aldryn_jobs/forms.py:234 aldryn_jobs/forms.py:243
 msgid "aldryn-jobs"
@@ -615,8 +540,6 @@ msgstr ""
 #: aldryn_jobs/forms.py:280
 msgid "Cannot work properly when config class is not provided."
 msgstr ""
-"Kann nicht korrekt ausgeführt werden wenn die \"config class\" nicht zur "
-"Verfügung gestellt wurde."
 
 #: aldryn_jobs/forms.py:307
 #, python-brace-format
@@ -625,110 +548,100 @@ msgid ""
 "apphook. To use them - attach them or publish pages to which they are "
 "attached:"
 msgstr ""
-"Die folgende {0} existieren, jedoch sind die Seiten nicht publiziert, oder "
-"sie haben keinen Apphook. Um diese zu Verwenden, konfigurieren Sie einen "
-"Apphook oder publizieren Sie die Seite, welche den Apphook enthaltet."
 
 #: aldryn_jobs/forms.py:339
 msgid ""
 "Seems that selected Job config is not plugged to any page, or maybe that "
 "page is not published.Please select Job config that is being used."
 msgstr ""
-"Der ausgewählte Job config ist nicht verbunden zu keiner Seite. Vielleicht "
-"ist die Seite noch nicht Veröffentlicht. Bitte wähle ein Job config, der in "
-"Verwendung ist."
 
 #: aldryn_jobs/models.py:88
 msgid "name"
-msgstr "Name"
+msgstr ""
 
 #: aldryn_jobs/models.py:90 aldryn_jobs/models.py:179
 msgid "slug"
-msgstr "Slug"
+msgstr ""
 
 #: aldryn_jobs/models.py:91 aldryn_jobs/models.py:181
 msgid ""
 "Auto-generated. Used in the URL. If changed, the URL will change. Clear it "
 "to have the slug re-created."
 msgstr ""
-"Automatisch generiert. Wird in der URL verwendet. Falls geändert, ändert "
-"sich auch die URL. Entfernen um Slug neu zu generieren."
 
 #: aldryn_jobs/models.py:96
 msgid "supervisors"
-msgstr "Vorgesetzte"
+msgstr ""
 
 #: aldryn_jobs/models.py:99
 msgid ""
 "Supervisors will be notified via email when a new job application arrives."
 msgstr ""
-"Vorgesetzte werden notifiziert via Email when eine neue Bewerbung vorhanden "
-"ist."
 
 #: aldryn_jobs/models.py:106 aldryn_jobs/models.py:612
 #: aldryn_jobs/models.py:660
 msgid "app configuration"
-msgstr "Applikationskonfiguration"
+msgstr ""
 
 #: aldryn_jobs/models.py:111 aldryn_jobs/models.py:208
 msgid "ordering"
-msgstr "ordernd"
+msgstr ""
 
 #: aldryn_jobs/models.py:116
 msgid "job category"
-msgstr "Job Kategorie"
+msgstr ""
 
 #: aldryn_jobs/models.py:117
 msgid "job categories"
-msgstr "Job Kategorien"
+msgstr ""
 
 #: aldryn_jobs/models.py:166
 msgid "Germany"
-msgstr "Deutschland"
+msgstr ""
 
 #: aldryn_jobs/models.py:167
 msgid "Switzerland"
-msgstr "Schweiz"
+msgstr ""
 
 #: aldryn_jobs/models.py:168
 msgid "China"
-msgstr "China"
+msgstr ""
 
 #: aldryn_jobs/models.py:169
 msgid "United Kingdom"
-msgstr "Vereinigtes Königreich"
+msgstr ""
 
 #: aldryn_jobs/models.py:170
 msgid "France"
-msgstr "Frankreich"
+msgstr ""
 
 #: aldryn_jobs/models.py:171
 msgid "USA"
-msgstr "USA"
+msgstr ""
 
 #: aldryn_jobs/models.py:177
 msgid "title"
-msgstr "Titel"
+msgstr ""
 
 #: aldryn_jobs/models.py:184
 msgid "short description"
-msgstr "Kurze Beschreibung"
+msgstr ""
 
 #: aldryn_jobs/models.py:185
 msgid "This text will be displayed in lists."
-msgstr "Dieser Text wird in der Liste angezeigt."
+msgstr ""
 
 #: aldryn_jobs/models.py:191
 msgid "category"
-msgstr "Kategorie"
+msgstr ""
 
 #: aldryn_jobs/models.py:196
 msgid "active?"
-msgstr "Tätig?"
+msgstr ""
 
 #: aldryn_jobs/models.py:197
 msgid "vacancy filled"
-msgstr "stelle besetzt"
+msgstr ""
 
 #: aldryn_jobs/models.py:198
 msgid "vacancy filled since"
@@ -744,245 +657,238 @@ msgstr ""
 
 #: aldryn_jobs/models.py:203
 msgid "published since"
-msgstr "Veröffentlicht seit"
+msgstr ""
 
 #: aldryn_jobs/models.py:204
 msgid "published until"
-msgstr "Veröffentlicht bis"
+msgstr ""
 
 #: aldryn_jobs/models.py:205
 msgid "viewer can apply for the job?"
-msgstr "Sie können sich für diese Stelle  bewerben?"
+msgstr ""
 
 #: aldryn_jobs/models.py:206 aldryn_jobs/models.py:377
 msgid "country"
-msgstr "land"
+msgstr ""
 
 #: aldryn_jobs/models.py:213 aldryn_jobs/models.py:290
 msgid "job opening"
-msgstr "offene Stelle"
+msgstr ""
 
 #: aldryn_jobs/models.py:214 aldryn_jobs/models.py:619
 msgid "job openings"
-msgstr "offene Stellen"
+msgstr ""
 
 #: aldryn_jobs/models.py:294
 msgid "question"
-msgstr "frage"
+msgstr ""
 
 #: aldryn_jobs/models.py:298
-#, fuzzy
-#| msgid "job openings"
 msgid "job opening question"
-msgstr "offene Stellen"
+msgstr ""
 
 #: aldryn_jobs/models.py:299
-#, fuzzy
-#| msgid "job openings"
 msgid "job opening questions"
-msgstr "offene Stellen"
+msgstr ""
 
 #: aldryn_jobs/models.py:311
 msgid ""
 "I agree that my data may be stored even beyond a specific vacancy and that I "
 "will be informed about interesting job offers."
 msgstr ""
-"Ich bin damit einverstanden, dass meine Daten auch über eine konkrete "
-"Stellenbesetzung hinaus gespeichert werden und ich auf interessante Stellenangebote "
-"hingewiesen werde."
 
 #: aldryn_jobs/models.py:313
 msgid ""
 "I would like my data to be deleted after the current application process."
-msgstr "Ich möchte, dass meine Daten nach dem aktuellen Bewerbungsverfahren gelöscht werden."
+msgstr ""
 
 #: aldryn_jobs/models.py:316
 msgid "Mr."
-msgstr "Herr"
+msgstr ""
 
 #: aldryn_jobs/models.py:317
 msgid "Mrs."
-msgstr "Frau"
+msgstr ""
 
 #: aldryn_jobs/models.py:321
 msgid "Yes"
-msgstr "Ja"
+msgstr ""
 
 #: aldryn_jobs/models.py:322
 msgid "No"
-msgstr "Nein"
+msgstr ""
 
 #: aldryn_jobs/models.py:326
 msgid "1 month"
-msgstr "1 Monat"
+msgstr ""
 
 #: aldryn_jobs/models.py:327
 msgid "2 month"
-msgstr "2 Monate"
+msgstr ""
 
 #: aldryn_jobs/models.py:328
 msgid "3 month"
-msgstr "3 Monate"
+msgstr ""
 
 #: aldryn_jobs/models.py:329
 msgid "6 month"
-msgstr "6 Monate"
+msgstr ""
 
 #: aldryn_jobs/models.py:330
 msgid "None"
-msgstr "Keine"
+msgstr ""
 
 #: aldryn_jobs/models.py:331
 msgid "Others"
-msgstr "Andere"
+msgstr ""
 
 #: aldryn_jobs/models.py:335
 msgid "LinkedIn"
-msgstr "LinkedIn"
+msgstr ""
 
 #: aldryn_jobs/models.py:336
 msgid "RAHN Website"
-msgstr "RAHN Website"
+msgstr ""
 
 #: aldryn_jobs/models.py:337
 msgid "Other (please specify) "
-msgstr "Andere (bitte spezifizieren)"
+msgstr ""
 
 #: aldryn_jobs/models.py:352
 msgid "Rejection Rahn AG"
-msgstr "Absage Rahn AG"
+msgstr ""
 
 #: aldryn_jobs/models.py:353
 msgid "Rejection Candidate"
-msgstr "Absage Kandidat"
+msgstr ""
 
 #: aldryn_jobs/models.py:354
 msgid "Confirmation of receiving"
-msgstr "Eingangsbestätigung"
+msgstr ""
 
 #: aldryn_jobs/models.py:355
 msgid "Maybe later"
-msgstr "Eventuell Später"
+msgstr ""
 
 #: aldryn_jobs/models.py:356
 msgid "Contact"
-msgstr "Kontakt"
+msgstr ""
 
 #: aldryn_jobs/models.py:357
 msgid "1st interview"
-msgstr "1. Interview"
+msgstr ""
 
 #: aldryn_jobs/models.py:358
 msgid "2nd interview"
-msgstr "2. Interview"
+msgstr ""
 
 #: aldryn_jobs/models.py:359
 msgid "3rd interview"
-msgstr "3. Interview"
+msgstr ""
 
 #: aldryn_jobs/models.py:360
 msgid "Missing documents"
-msgstr "Fehlende Unterlagen"
+msgstr ""
 
 #: aldryn_jobs/models.py:361
 msgid "Employment Contract"
-msgstr "Anstellung Vertrag"
+msgstr ""
 
 #: aldryn_jobs/models.py:362
 msgid "Shared with superiors"
-msgstr "Mit Vorgesetzten geteilt"
+msgstr ""
 
 #: aldryn_jobs/models.py:370
 msgid "salutation"
-msgstr "Anrede"
+msgstr ""
 
 #: aldryn_jobs/models.py:371
 msgid "first name"
-msgstr "Vorname"
+msgstr ""
 
 #: aldryn_jobs/models.py:372
 msgid "last name"
-msgstr "Nachname"
+msgstr ""
 
 #: aldryn_jobs/models.py:373
 msgid "email"
-msgstr "Email"
+msgstr ""
 
 #: aldryn_jobs/models.py:374
 msgid "street"
-msgstr "strasse"
+msgstr ""
 
 #: aldryn_jobs/models.py:375
 msgid "city"
-msgstr "ort"
+msgstr ""
 
 #: aldryn_jobs/models.py:376
 msgid "zip code"
-msgstr "PLZ"
+msgstr ""
 
 #: aldryn_jobs/models.py:378
 msgid "nationality"
-msgstr "nationalität"
+msgstr ""
 
 #: aldryn_jobs/models.py:379
 msgid "mobile phone"
-msgstr "mobiltelefon"
+msgstr ""
 
 #: aldryn_jobs/models.py:381
 msgid "valid work permit"
-msgstr "Gültige Arbeitsbewilligung"
+msgstr ""
 
 #: aldryn_jobs/models.py:388 aldryn_jobs/models.py:395
 msgid "cover letter"
-msgstr "motivationsschreiben"
+msgstr ""
 
 #: aldryn_jobs/models.py:396
 msgid "answer 1"
-msgstr "antwort 1"
+msgstr ""
 
 #: aldryn_jobs/models.py:397
 msgid "answer 2"
-msgstr "antwort 2"
+msgstr ""
 
 #: aldryn_jobs/models.py:398
 msgid "answer 3"
-msgstr "antwort 3"
+msgstr ""
 
 #: aldryn_jobs/models.py:399
 msgid "expected salary"
-msgstr "lohnvorstellung"
+msgstr ""
 
 #: aldryn_jobs/models.py:401
 msgid "notice period"
-msgstr "kündigungsfrist"
+msgstr ""
 
 #: aldryn_jobs/models.py:408
 msgid "how did you hear about us?"
-msgstr "wie sind Sie auf uns aufmerksam geworden?"
+msgstr ""
 
 #: aldryn_jobs/models.py:415
 msgid "other (how did you hear about us)"
-msgstr "andere (wie sind Sie auf uns aufmerksam geworden?)"
+msgstr ""
 
 #: aldryn_jobs/models.py:418
 msgid "data retention"
-msgstr "datenspeicherung"
+msgstr ""
 
 #: aldryn_jobs/models.py:424
 msgid "application pool"
-msgstr "Bewerber Pool"
+msgstr ""
 
 #: aldryn_jobs/models.py:426
 msgid "abc analysis"
-msgstr "ABC Analyse"
+msgstr ""
 
 #: aldryn_jobs/models.py:432
 msgid "abc analysis explaination"
-msgstr "ABC Analyse explaination"
+msgstr ""
 
 #: aldryn_jobs/models.py:433
 msgid "status"
-msgstr "status"
+msgstr ""
 
 #: aldryn_jobs/models.py:434
 msgid "filled by Rahn"
@@ -990,29 +896,27 @@ msgstr ""
 
 #: aldryn_jobs/models.py:435
 msgid "created"
-msgstr "Erstellt"
+msgstr ""
 
 #: aldryn_jobs/models.py:436
 msgid "rejected?"
-msgstr "absage?"
+msgstr ""
 
 #: aldryn_jobs/models.py:437
 msgid "rejection date"
-msgstr "Absagedatum"
+msgstr ""
 
 #: aldryn_jobs/models.py:439
-#, fuzzy
-#| msgid "Cover letter & attachments"
 msgid "merged PDF of attachments"
-msgstr "Begleitschreiben und Anhänge"
+msgstr ""
 
 #: aldryn_jobs/models.py:449 aldryn_jobs/models.py:475
 msgid "job application"
-msgstr "Bewerbung"
+msgstr ""
 
 #: aldryn_jobs/models.py:450
 msgid "job applications"
-msgstr "Bewerbungen"
+msgstr ""
 
 #: aldryn_jobs/models.py:483
 msgid "recipient"
@@ -1023,34 +927,27 @@ msgid "language"
 msgstr ""
 
 #: aldryn_jobs/models.py:493 aldryn_jobs/models.py:681
-#, fuzzy
-#| msgid "app configuration"
 msgid "app_config"
-msgstr "Applikationskonfiguration"
+msgstr ""
 
 #: aldryn_jobs/models.py:613 aldryn_jobs/models.py:661
 msgid "Select appropriate app. configuration for this plugin."
-msgstr "Wähle angemessene Applikationskonfigurationen für dieses Plugin."
+msgstr ""
 
 #: aldryn_jobs/models.py:620
 msgid ""
 "Choose specific Job Openings to show or leave empty to show latest. Note "
 "that Job Openings from different app configs will not appear."
 msgstr ""
-"Wähle einen spezifischene offene Stelle. Leer lassen zeigt nie neuste "
-"Stelle. Beachte das verschiedene offene Stellen von verschiedenen \"app "
-"configs\" nicht erscheinen."
 
 #: aldryn_jobs/models.py:666
 #, python-format
 msgid "%s categories"
-msgstr "%s Kategorien"
+msgstr ""
 
 #: aldryn_jobs/models.py:682
-#, fuzzy
-#| msgid "Select appropriate app. configuration for this plugin."
 msgid "Select appropriate add-on configuration for this plugin."
-msgstr "Wähle angemessene Applikationskonfigurationen für dieses Plugin."
+msgstr ""
 
 #: aldryn_jobs/models.py:687
 msgid "Notification to"
@@ -1077,17 +974,14 @@ msgstr[1] ""
 
 #: aldryn_jobs/views.py:152
 msgid "You can't apply for this job."
-msgstr "Sie können sich für diese Stelle nicht bewerben."
+msgstr ""
 
 #: aldryn_jobs/views.py:160
 #, python-format
 msgid "You have successfully applied for %(job)s."
-msgstr "Herzlichen Dank für Ihre Bewerbung auf die Stelle %(job)s."
+msgstr ""
 
 #: aldryn_jobs/views.py:179
 #, python-brace-format
 msgid "You have confirmed {email}."
 msgstr ""
-
-#~ msgid "Initial version."
-#~ msgstr "Erste Version."
