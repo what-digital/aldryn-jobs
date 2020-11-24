@@ -10,7 +10,7 @@ from django.db.models.signals import pre_delete, post_save
 from django.dispatch.dispatcher import receiver
 from django.utils.encoding import force_text, python_2_unicode_compatible
 from django.utils.timezone import now
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import ugettext_lazy as _, pgettext_lazy
 from django.contrib.auth.models import Group, User
 from django.contrib.sites.shortcuts import get_current_site
 from django.http import Http404
@@ -198,7 +198,7 @@ class JobOpening(TranslatedAutoSlugifyMixin,
     vacancy_filled_date = models.DateTimeField(_('vacancy filled since'), null=True, blank=True)
     reminder_mail_sent = models.BooleanField(_('reminder mail sent'), default=False)
     responsibles = models.ManyToManyField(
-        User, verbose_name=_('responsibles'), limit_choices_to={'is_staff': True}, blank=True
+        User, verbose_name=_('responsibles'), limit_choices_to={'groups__name': 'Rahn HR Responsibles'}, blank=True
     )
     publication_start = models.DateTimeField(_('published since'), null=True, blank=True)
     publication_end = models.DateTimeField(_('published until'), null=True, blank=True)
@@ -318,20 +318,23 @@ class JobApplication(models.Model):
     )
 
     VALID_WORK_PERMIT_CHOICES = (
+        ('', _('Please select')),
         ('yes', _('Yes')),
         ('no', _('No'))
     )
 
     NOTICE_PERIOD_CHOICES = (
-        ('1', _('1 month')),
-        ('2', _('2 month')),
-        ('3', _('3 month')),
-        ('6', _('6 month')),
-        ('0', _('None')),
-        ('O', _('Others'))
+        ('', _('Please select')),
+        ('1 month', _('1 month')),
+        ('2 months', _('2 months')),
+        ('3 months', _('3 months')),
+        ('6 months', _('6 months')),
+        ('none', pgettext_lazy('None in notice period', 'None')),
+        ('other', _('Other (please specify)'))
     )
 
     HOW_HEAR_ABOUT_US_CHOICES = (
+        ('', _('Please select')),
         ('linkedin', _('LinkedIn')),
         ('rahn website', _('RAHN Website')),
         ('other', _('Other (please specify) ')),
@@ -376,7 +379,7 @@ class JobApplication(models.Model):
     zipcode = models.CharField(_('zip code'), max_length=10, default='')
     country = CountryField(_('country'), null=True, blank=True)
     nationality = models.CharField(_('nationality'), max_length=50, null=True, blank=True)
-    mobile_phone = models.CharField(_('mobile phone'), max_length=20, default='')
+    mobile_phone = models.CharField(_('mobile number'), max_length=20, default='')
     valid_work_permit = models.CharField(
         _('valid work permit'),
         choices=VALID_WORK_PERMIT_CHOICES,
@@ -400,9 +403,12 @@ class JobApplication(models.Model):
     notice_period = models.CharField(
         _('notice period'),
         choices=NOTICE_PERIOD_CHOICES,
-        max_length=1,
+        max_length=10,
         null=True,
         blank=True
+    )
+    notice_period_other = models.CharField(
+        _('other (notice period)'), max_length=256, null=True, blank=True
     )
     how_hear_about_us = models.CharField(
         _('how did you hear about us?'),
@@ -429,7 +435,7 @@ class JobApplication(models.Model):
         null=True,
         blank=True
     )
-    abc_analysis_explaination = models.CharField(_('abc analysis explaination'), max_length=200, null=True, blank=True)
+    abc_analysis_explanation = models.CharField(_('abc analysis explanation'), max_length=200, null=True, blank=True)
     status = models.CharField(_('status'), choices=STATUS_CHOICES, max_length=25, null=True, blank=True)
     filled_by_rahn = models.BooleanField(_('filled by Rahn'), default=False)
     created = models.DateTimeField(_('created'), auto_now_add=True)
