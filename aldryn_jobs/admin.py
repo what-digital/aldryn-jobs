@@ -28,31 +28,30 @@ from .models import JobApplication, JobCategory, JobOpening, JobOpeningQuestion,
 
 
 def _send_rejection_email(modeladmin, request, queryset, lang_code='',
-                          delete_application=False):
-    # 1. send rejection email - this should be refactored to use djangos "bulk"
-    #    mail
-    #
-    # Info: Using mass rejection on many JobApplications can lead to a timeout,
-    # since SMTPs are not known to be fast
+                          delete_application=False, application_pool=False):
     qs_count = len(queryset)
 
     for application in queryset:
+        mail_template = 'aldryn_jobs/emails/rejection_letter' if not application_pool else \
+            'aldryn_jobs/emails/rejection_letter_application_pool'
         context = {'job_application': application, }
         send_mail(recipients=[application.email], context=context,
-                  template_base='aldryn_jobs/emails/rejection_letter',
+                  template_base=mail_template,
                   language=lang_code.lower())
 
-    # 2. update status or delete objects
     if not delete_application:
-        queryset.update(is_rejected=True, rejection_date=now())
-        success_msg = _("Successfully sent {0} rejection email(s).").format(
-            qs_count)
+        queryset.update(
+            is_rejected=True,
+            rejection_date=now(),
+            status='rejection rahn ag',
+            application_pool=application_pool
+        )
+        success_msg = _("Successfully sent {0} rejection email(s).").format(qs_count)
     else:
         queryset.delete()
         success_msg = _("Successfully deleted {0} application(s) and sent "
                         "rejection email.").format(qs_count)
 
-    # 3. inform user with success message
     modeladmin.message_user(request, success_msg)
     return
 
@@ -68,6 +67,19 @@ class SendRejectionEmail(object):
     def __call__(self, modeladmin, request, queryset, *args, **kwargs):
         _send_rejection_email(modeladmin, request, queryset,
                               lang_code=self.lang_code)
+
+
+class SendRejectionEmailApplicationPool(object):
+
+    def __init__(self, lang_code=''):
+        super(SendRejectionEmailApplicationPool, self).__init__()
+        self.lang_code = lang_code.upper()
+        self.name = 'send_rejection_email_application_pool_{0}'.format(self.lang_code)
+        self.title = _("Send rejection e-mail (Application pool) {0}").format(self.lang_code)
+
+    def __call__(self, modeladmin, request, queryset, *args, **kwargs):
+        _send_rejection_email(modeladmin, request, queryset,
+                              lang_code=self.lang_code, application_pool=True)
 
 
 class SendRejectionEmailAndDelete(SendRejectionEmail):
@@ -111,7 +123,7 @@ class JobApplicationAdmin(PlaceholderAdminMixin, admin.ModelAdmin):
                 'answer_1', 'answer_2', 'answer_3', 'expected_salary',
                 ('notice_period', 'how_hear_about_us', 'how_hear_about_us_other'),
                 'data_retention',
-                ('application_pool', 'abc_analysis', 'abc_analysis_explaination'),
+                ('application_pool', 'abc_analysis', 'abc_analysis_explanation'),
             ]
         })
     ]
@@ -125,6 +137,12 @@ class JobApplicationAdmin(PlaceholderAdminMixin, admin.ModelAdmin):
                 send_rejection_email,
                 send_rejection_email.name,
                 send_rejection_email.title
+            )
+            send_rejection_email_application_pool = SendRejectionEmailApplicationPool(lang_code=lang_code)
+            actions[send_rejection_email_application_pool.name] = (
+                send_rejection_email_application_pool,
+                send_rejection_email_application_pool.name,
+                send_rejection_email_application_pool.title
             )
             send_rejection_and_delete = SendRejectionEmailAndDelete(
                 lang_code=lang_code)
