@@ -313,6 +313,7 @@ class JobApplication(models.Model):
     DATA_RETENTION_NO = _('I would like my data to be deleted after the current application process.')
 
     SALUTATION_CHOICES = (
+        ('', _('Please select')),
         (MALE, _('Mr.')),
         (FEMALE, _('Mrs.')),
     )
@@ -370,7 +371,7 @@ class JobApplication(models.Model):
         related_name='applications',
         on_delete=models.CASCADE
     )
-    salutation = models.CharField(_('salutation'), max_length=20, blank=True, choices=SALUTATION_CHOICES, default=MALE)
+    salutation = models.CharField(_('salutation'), max_length=20, null=True, blank=True, choices=SALUTATION_CHOICES)
     first_name = models.CharField(_('first name'), max_length=20)
     last_name = models.CharField(_('last name'), max_length=20)
     email = models.EmailField(_('email'), max_length=254)
