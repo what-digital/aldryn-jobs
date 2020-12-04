@@ -380,7 +380,7 @@ class JobApplication(models.Model):
     zipcode = models.CharField(_('zip code'), max_length=10, default='')
     country = CountryField(_('country'), null=True, blank=True)
     nationality = models.CharField(_('nationality'), max_length=50, null=True, blank=True)
-    mobile_phone = models.CharField(_('mobile number'), max_length=20, default='')
+    mobile_phone = models.CharField(_('phone number'), max_length=20, default='')
     valid_work_permit = models.CharField(
         _('valid work permit'),
         choices=VALID_WORK_PERMIT_CHOICES,

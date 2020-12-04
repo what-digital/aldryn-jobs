@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Aldryn Jobs\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-24 09:19+0100\n"
+"POT-Creation-Date: 2020-12-04 09:06+0100\n"
 "PO-Revision-Date: 2016-08-23 20:13+0000\n"
 "Last-Translator: Paulo Alvarado <paulo.alvarado@divio.ch>\n"
 "Language-Team: German (http://www.transifex.com/divio/aldryn-jobs/language/"
@@ -671,7 +671,7 @@ msgstr ""
 "Vorgesetzte werden notifiziert via Email when eine neue Bewerbung vorhanden "
 "ist."
 
-#: models.py:106 models.py:618 models.py:666
+#: models.py:106 models.py:619 models.py:667
 msgid "app configuration"
 msgstr "Applikationskonfiguration"
 
@@ -759,7 +759,7 @@ msgstr "Veröffentlicht bis"
 msgid "viewer can apply for the job?"
 msgstr "Sie können sich für diese Stelle  bewerben?"
 
-#: models.py:206 models.py:380
+#: models.py:206 models.py:381
 msgid "country"
 msgstr "land"
 
@@ -767,7 +767,7 @@ msgstr "land"
 msgid "job opening"
 msgstr "offene Stelle"
 
-#: models.py:214 models.py:625
+#: models.py:214 models.py:626
 msgid "job openings"
 msgstr "offene Stellen"
 
@@ -803,256 +803,256 @@ msgstr ""
 "Ich möchte, dass meine Daten nach dem aktuellen Bewerbungsverfahren gelöscht "
 "werden."
 
-#: models.py:316
-msgid "Mr."
-msgstr "Herr"
-
-#: models.py:317
-msgid "Mrs."
-msgstr "Frau"
-
-#: models.py:321 models.py:327 models.py:337
+#: models.py:316 models.py:322 models.py:328 models.py:338
 msgid "Please select"
 msgstr "Bitte auswählen"
 
-#: models.py:322
+#: models.py:317
+msgid "Mr."
+msgstr "Herr"
+
+#: models.py:318
+msgid "Mrs."
+msgstr "Frau"
+
+#: models.py:323
 msgid "Yes"
 msgstr "Ja"
 
-#: models.py:323
+#: models.py:324
 msgid "No"
 msgstr "Nein"
 
-#: models.py:328
+#: models.py:329
 msgid "1 month"
 msgstr "1 Monat"
 
-#: models.py:329
+#: models.py:330
 msgid "2 months"
 msgstr "2 Monate"
 
-#: models.py:330
+#: models.py:331
 msgid "3 months"
 msgstr "3 Monate"
 
-#: models.py:331
+#: models.py:332
 msgid "6 months"
 msgstr "6 Monate"
 
-#: models.py:332
+#: models.py:333
 msgctxt "None in notice period"
 msgid "None"
 msgstr "Keine"
 
-#: models.py:333
+#: models.py:334
 msgid "Other (please specify)"
 msgstr "Andere (bitte spezifizieren)"
 
-#: models.py:338
+#: models.py:339
 msgid "LinkedIn"
 msgstr "LinkedIn"
 
-#: models.py:339
+#: models.py:340
 msgid "RAHN Website"
 msgstr "RAHN Website"
 
-#: models.py:340
+#: models.py:341
 msgid "Other (please specify) "
 msgstr "Andere (bitte spezifizieren)"
 
-#: models.py:355
+#: models.py:356
 msgid "Rejection Rahn AG"
 msgstr "Absage Rahn AG"
 
-#: models.py:356
+#: models.py:357
 msgid "Rejection Candidate"
 msgstr "Absage Kandidat"
 
-#: models.py:357
+#: models.py:358
 msgid "Confirmation of receiving"
 msgstr "Eingangsbestätigung"
 
-#: models.py:358
+#: models.py:359
 msgid "Maybe later"
 msgstr "Eventuell Später"
 
-#: models.py:359
+#: models.py:360
 msgid "Contact"
 msgstr "Kontakt"
 
-#: models.py:360
+#: models.py:361
 msgid "1st interview"
 msgstr "1. Interview"
 
-#: models.py:361
+#: models.py:362
 msgid "2nd interview"
 msgstr "2. Interview"
 
-#: models.py:362
+#: models.py:363
 msgid "3rd interview"
 msgstr "3. Interview"
 
-#: models.py:363
+#: models.py:364
 msgid "Missing documents"
 msgstr "Fehlende Unterlagen"
 
-#: models.py:364
+#: models.py:365
 msgid "Employment Contract"
 msgstr "Anstellung Vertrag"
 
-#: models.py:365
+#: models.py:366
 msgid "Shared with superiors"
 msgstr "Mit Vorgesetzten geteilt"
 
-#: models.py:373
+#: models.py:374
 msgid "salutation"
 msgstr "Anrede"
 
-#: models.py:374
+#: models.py:375
 msgid "first name"
 msgstr "Vorname"
 
-#: models.py:375
+#: models.py:376
 msgid "last name"
 msgstr "Nachname"
 
-#: models.py:376
+#: models.py:377
 msgid "email"
 msgstr "Email"
 
-#: models.py:377
+#: models.py:378
 msgid "street"
 msgstr "strasse"
 
-#: models.py:378
+#: models.py:379
 msgid "city"
 msgstr "ort"
 
-#: models.py:379
+#: models.py:380
 msgid "zip code"
 msgstr "PLZ"
 
-#: models.py:381
+#: models.py:382
 msgid "nationality"
 msgstr "nationalität"
 
-#: models.py:382
-msgid "mobile number"
-msgstr "Mobil Nummer"
+#: models.py:383
+msgid "phone number"
+msgstr "Telefon Nummer"
 
-#: models.py:384
+#: models.py:385
 msgid "valid work permit"
 msgstr "Gültige Arbeitsbewilligung"
 
-#: models.py:391 models.py:398
+#: models.py:392 models.py:399
 msgid "cover letter"
 msgstr "motivationsschreiben"
 
-#: models.py:399
+#: models.py:400
 msgid "answer 1"
 msgstr "antwort 1"
 
-#: models.py:400
+#: models.py:401
 msgid "answer 2"
 msgstr "antwort 2"
 
-#: models.py:401
+#: models.py:402
 msgid "answer 3"
 msgstr "antwort 3"
 
-#: models.py:402
+#: models.py:403
 msgid "expected salary"
 msgstr "lohnvorstellung"
 
-#: models.py:404
+#: models.py:405
 msgid "notice period"
 msgstr "kündigungsfrist"
 
-#: models.py:411
+#: models.py:412
 #, fuzzy
 #| msgid "notice period"
 msgid "other (notice period)"
 msgstr "kündigungsfrist"
 
-#: models.py:414
+#: models.py:415
 msgid "how did you hear about us?"
 msgstr "wie sind Sie auf uns aufmerksam geworden?"
 
-#: models.py:421
+#: models.py:422
 msgid "other (how did you hear about us)"
 msgstr "andere (wie sind Sie auf uns aufmerksam geworden?)"
 
-#: models.py:424
+#: models.py:425
 msgid "data retention"
 msgstr "datenspeicherung"
 
-#: models.py:430
+#: models.py:431
 msgid "application pool"
 msgstr "Bewerber Pool"
 
-#: models.py:432
+#: models.py:433
 msgid "abc analysis"
 msgstr "ABC Analyse"
 
-#: models.py:438
+#: models.py:439
 #, fuzzy
 #| msgid "abc analysis explaination"
 msgid "abc analysis explanation"
 msgstr "ABC Analyse explaination"
 
-#: models.py:439
+#: models.py:440
 msgid "status"
 msgstr "status"
 
-#: models.py:440
+#: models.py:441
 msgid "filled by Rahn"
 msgstr ""
 
-#: models.py:441
+#: models.py:442
 msgid "created"
 msgstr "Erstellt"
 
-#: models.py:442
+#: models.py:443
 msgid "rejected?"
 msgstr "absage?"
 
-#: models.py:443
+#: models.py:444
 msgid "rejection date"
 msgstr "Absagedatum"
 
-#: models.py:445
+#: models.py:446
 #, fuzzy
 #| msgid "Cover letter & attachments"
 msgid "merged PDF of attachments"
 msgstr "Begleitschreiben und Anhänge"
 
-#: models.py:455 models.py:481
+#: models.py:456 models.py:482
 msgid "job application"
 msgstr "Bewerbung"
 
-#: models.py:456
+#: models.py:457
 msgid "job applications"
 msgstr "Bewerbungen"
 
-#: models.py:489
+#: models.py:490
 msgid "recipient"
 msgstr ""
 
-#: models.py:490
+#: models.py:491
 msgid "language"
 msgstr ""
 
-#: models.py:499 models.py:687
+#: models.py:500 models.py:688
 #, fuzzy
 #| msgid "app configuration"
 msgid "app_config"
 msgstr "Applikationskonfiguration"
 
-#: models.py:619 models.py:667
+#: models.py:620 models.py:668
 msgid "Select appropriate app. configuration for this plugin."
 msgstr "Wähle angemessene Applikationskonfigurationen für dieses Plugin."
 
-#: models.py:626
+#: models.py:627
 msgid ""
 "Choose specific Job Openings to show or leave empty to show latest. Note "
 "that Job Openings from different app configs will not appear."
@@ -1061,22 +1061,22 @@ msgstr ""
 "Stelle. Beachte das verschiedene offene Stellen von verschiedenen \"app "
 "configs\" nicht erscheinen."
 
-#: models.py:672
+#: models.py:673
 #, python-format
 msgid "%s categories"
 msgstr "%s Kategorien"
 
-#: models.py:688
+#: models.py:689
 #, fuzzy
 #| msgid "Select appropriate app. configuration for this plugin."
 msgid "Select appropriate add-on configuration for this plugin."
 msgstr "Wähle angemessene Applikationskonfigurationen für dieses Plugin."
 
-#: models.py:693
+#: models.py:694
 msgid "Notification to"
 msgstr ""
 
-#: models.py:695
+#: models.py:696
 msgid ""
 "If user successfuly completed registration.<br/>Notification would be sent "
 "to users from selected groups<br/>Leave blank to disable notifications.<br/>"
