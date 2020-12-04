@@ -26,6 +26,7 @@ REQUIREMENTS = [
     'pytz',
     'cssutils',
     'Django<3.0',
+    'django-countries',
 ]
 
 CLASSIFIERS = [

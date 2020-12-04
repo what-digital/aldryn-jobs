@@ -69,7 +69,7 @@ class JobOpeningList(JobsBaseMixin, AppConfigMixin, ListView):
 
     def get_queryset(self):
         return super(JobOpeningList, self).get_queryset().order_by(
-            'category__ordering', 'ordering')
+            'country', 'category__ordering', 'ordering')
 
 
 class CategoryJobOpeningList(JobsBaseMixin, AppConfigMixin, ListView):

@@ -20,39 +20,38 @@ from aldryn_translation_tools.admin import (
 from cms.admin.placeholderadmin import PlaceholderAdminMixin, FrontendEditableAdminMixin
 
 from emailit.api import send_mail
-from parler.admin import TranslatableAdmin
+from parler.admin import TranslatableAdmin, TranslatableStackedInline
 
 
 from .forms import JobCategoryAdminForm, JobOpeningAdminForm
-from .models import JobApplication, JobCategory, JobOpening, JobsConfig, NewsletterSignup
+from .models import JobApplication, JobCategory, JobOpening, JobOpeningQuestion, JobsConfig, NewsletterSignup
 
 
 def _send_rejection_email(modeladmin, request, queryset, lang_code='',
-                          delete_application=False):
-    # 1. send rejection email - this should be refactored to use djangos "bulk"
-    #    mail
-    #
-    # Info: Using mass rejection on many JobApplications can lead to a timeout,
-    # since SMTPs are not known to be fast
+                          delete_application=False, application_pool=False):
     qs_count = len(queryset)
 
     for application in queryset:
+        mail_template = 'aldryn_jobs/emails/rejection_letter' if not application_pool else \
+            'aldryn_jobs/emails/rejection_letter_application_pool'
         context = {'job_application': application, }
         send_mail(recipients=[application.email], context=context,
-                  template_base='aldryn_jobs/emails/rejection_letter',
+                  template_base=mail_template,
                   language=lang_code.lower())
 
-    # 2. update status or delete objects
     if not delete_application:
-        queryset.update(is_rejected=True, rejection_date=now())
-        success_msg = _("Successfully sent {0} rejection email(s).").format(
-            qs_count)
+        queryset.update(
+            is_rejected=True,
+            rejection_date=now(),
+            status='rejection rahn ag',
+            application_pool=application_pool
+        )
+        success_msg = _("Successfully sent {0} rejection email(s).").format(qs_count)
     else:
         queryset.delete()
         success_msg = _("Successfully deleted {0} application(s) and sent "
                         "rejection email.").format(qs_count)
 
-    # 3. inform user with success message
     modeladmin.message_user(request, success_msg)
     return
 
@@ -68,6 +67,19 @@ class SendRejectionEmail(object):
     def __call__(self, modeladmin, request, queryset, *args, **kwargs):
         _send_rejection_email(modeladmin, request, queryset,
                               lang_code=self.lang_code)
+
+
+class SendRejectionEmailApplicationPool(object):
+
+    def __init__(self, lang_code=''):
+        super(SendRejectionEmailApplicationPool, self).__init__()
+        self.lang_code = lang_code.upper()
+        self.name = 'send_rejection_email_application_pool_{0}'.format(self.lang_code)
+        self.title = _("Send rejection e-mail (Application pool) {0}").format(self.lang_code)
+
+    def __call__(self, modeladmin, request, queryset, *args, **kwargs):
+        _send_rejection_email(modeladmin, request, queryset,
+                              lang_code=self.lang_code, application_pool=True)
 
 
 class SendRejectionEmailAndDelete(SendRejectionEmail):
@@ -92,13 +104,27 @@ class JobApplicationAdmin(PlaceholderAdminMixin, admin.ModelAdmin):
 
     fieldsets = [
         (_('Job Opening'), {
-            'fields': ['job_opening']
+            'fields': [('job_opening', 'status', 'filled_by_rahn')]
         }),
         (_('Personal information'), {
-            'fields': ['salutation', 'first_name', 'last_name', 'email']
+            'fields': [
+                ('salutation', 'first_name', 'last_name', 'email'),
+                ('street', 'city', 'zipcode'),
+                ('country', 'nationality', 'mobile_phone', 'valid_work_permit'),
+            ]
         }),
         (_('Cover letter & attachments'), {
-            'fields': ['cover_letter', 'get_attachment_address']
+            'fields': [
+                'cover_letter', 'cover_letter_file', 'get_attachment_address', 'merged_pdf'
+            ]
+        }),
+        (_('Questions and data'), {
+            'fields': [
+                'answer_1', 'answer_2', 'answer_3', 'expected_salary',
+                ('notice_period', 'how_hear_about_us', 'how_hear_about_us_other'),
+                'data_retention',
+                ('application_pool', 'abc_analysis', 'abc_analysis_explanation'),
+            ]
         })
     ]
 
@@ -112,6 +138,12 @@ class JobApplicationAdmin(PlaceholderAdminMixin, admin.ModelAdmin):
                 send_rejection_email.name,
                 send_rejection_email.title
             )
+            send_rejection_email_application_pool = SendRejectionEmailApplicationPool(lang_code=lang_code)
+            actions[send_rejection_email_application_pool.name] = (
+                send_rejection_email_application_pool,
+                send_rejection_email_application_pool.name,
+                send_rejection_email_application_pool.title
+            )
             send_rejection_and_delete = SendRejectionEmailAndDelete(
                 lang_code=lang_code)
             actions[send_rejection_and_delete.name] = (
@@ -120,11 +152,6 @@ class JobApplicationAdmin(PlaceholderAdminMixin, admin.ModelAdmin):
                 send_rejection_and_delete.title
             )
         return actions
-
-    def has_add_permission(self, request):
-        # Don't allow creation of "new" applications via admin-backend until
-        # it's properly implemented
-        return False
 
     def get_attachment_address(self, instance):
         attachment_link = '<a href="{address}">{address}</a>'
@@ -171,15 +198,21 @@ class JobApplicationInline(LinkedRelatedInlineMixin, admin.TabularInline):
         return False
 
 
+class JobOpeningQuestionInline(TranslatableStackedInline):
+    model = JobOpeningQuestion
+    fields = ['question']
+    max_num = 3
+
+
 class JobOpeningAdmin(PlaceholderAdminMixin,
                       AllTranslationsMixin,
                       SortableAdminMixin,
                       FrontendEditableAdminMixin,
                       TranslatableAdmin):
     form = JobOpeningAdminForm
-    list_display = ['__str__', 'category', 'num_applications', ]
+    list_display = ['__str__', 'category', 'num_applications']
     frontend_editable_fields = ('title', 'lead_in')
-    inlines = [JobApplicationInline, ]
+    inlines = [JobOpeningQuestionInline, JobApplicationInline]
     actions = ['send_newsletter_email']
 
     def get_fieldsets(self, request, obj=None):
@@ -188,10 +221,16 @@ class JobOpeningAdmin(PlaceholderAdminMixin,
                 'fields': ['title', 'slug', 'lead_in']
             }),
             (_('Options'), {
-                'fields': ['category', 'is_active', 'can_apply']
+                'fields': ['category', 'is_active', 'can_apply', 'country']
             }),
             (_('Publication period'), {
                 'fields': [('publication_start', 'publication_end')]
+            }),
+            (_('Vacancy filled'), {
+                'fields': [
+                    'vacancy_filled', 'vacancy_filled_date',
+                    'reminder_mail_sent', 'responsibles',
+                ]
             })
         ]
         return fieldsets

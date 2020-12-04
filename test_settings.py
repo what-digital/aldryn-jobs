@@ -27,6 +27,7 @@ HELPER_SETTINGS = {
         'emailit',
         'adminsortable2',
         'standard_form',
+        'django_countries',
     ],
     'THUMBNAIL_PROCESSORS': (
         'easy_thumbnails.processors.colorspace',

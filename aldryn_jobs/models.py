@@ -6,12 +6,12 @@ from django.conf import settings
 from django.urls import reverse, NoReverseMatch
 
 from django.db import models
-from django.db.models.signals import pre_delete
+from django.db.models.signals import pre_delete, post_save
 from django.dispatch.dispatcher import receiver
 from django.utils.encoding import force_text, python_2_unicode_compatible
 from django.utils.timezone import now
-from django.utils.translation import ugettext_lazy as _
-from django.contrib.auth.models import Group
+from django.utils.translation import ugettext_lazy as _, pgettext_lazy
+from django.contrib.auth.models import Group, User
 from django.contrib.sites.shortcuts import get_current_site
 from django.http import Http404
 from emailit.api import send_mail
@@ -28,6 +28,7 @@ from aldryn_translation_tools.models import (
 from cms.models import CMSPlugin
 from cms.models.fields import PlaceholderField
 from cms.utils.i18n import force_language
+from django_countries.fields import CountryField
 from distutils.version import LooseVersion
 from functools import partial
 from os.path import join as join_path
@@ -72,7 +73,8 @@ JobApplicationFileField = partial(
     blank=True,
     null=True,
     upload_to=jobs_attachment_upload_to,
-    storage=jobs_attachment_storage
+    storage=jobs_attachment_storage,
+
 )
 
 
@@ -160,6 +162,15 @@ class JobCategory(TranslatedAutoSlugifyMixin,
 class JobOpening(TranslatedAutoSlugifyMixin,
                  TranslationHelperMixin,
                  TranslatableModel):
+    COUNTRIES = (
+        ('germany', _('Germany')),
+        ('switzerland', _('Switzerland')),
+        ('china', _('China')),
+        ('uk', _('United Kingdom')),
+        ('france', _('France')),
+        ('usa', _('USA'))
+    )
+
     slug_source_field_name = 'title'
 
     translations = TranslatedFields(
@@ -183,9 +194,16 @@ class JobOpening(TranslatedAutoSlugifyMixin,
     )
     created = models.DateTimeField(auto_now_add=True)
     is_active = models.BooleanField(_('active?'), default=True)
+    vacancy_filled = models.BooleanField(_('vacancy filled'), default=False)
+    vacancy_filled_date = models.DateTimeField(_('vacancy filled since'), null=True, blank=True)
+    reminder_mail_sent = models.BooleanField(_('reminder mail sent'), default=False)
+    responsibles = models.ManyToManyField(
+        User, verbose_name=_('responsibles'), limit_choices_to={'groups__name': 'Rahn HR Responsibles'}, blank=True
+    )
     publication_start = models.DateTimeField(_('published since'), null=True, blank=True)
     publication_end = models.DateTimeField(_('published until'), null=True, blank=True)
     can_apply = models.BooleanField(_('viewer can apply for the job?'), default=True)
+    country = models.CharField(_('country'), choices=COUNTRIES, max_length=100, default='germany')
 
     ordering = models.IntegerField(_('ordering'), default=0)
 
@@ -247,15 +265,105 @@ class JobOpening(TranslatedAutoSlugifyMixin,
         return self.category.get_notification_emails()
 
 
+@receiver(post_save, sender=JobOpening)
+def set_vacancy_filled_date(sender, instance, update_fields, **kwargs):
+    if not instance:
+        return
+    if hasattr(instance, '_dirty'):
+        return
+
+    if instance.vacancy_filled and not instance.vacancy_filled_date:
+        instance.vacancy_filled_date = now()
+
+    try:
+        instance._dirty = True
+        instance.save()
+    finally:
+        del instance._dirty
+
+
+@python_2_unicode_compatible
+class JobOpeningQuestion(TranslationHelperMixin, TranslatableModel):
+    job_opening = models.ForeignKey(
+        JobOpening,
+        related_name='questions',
+        verbose_name=_('job opening'),
+        on_delete=models.CASCADE
+    )
+    translations = TranslatedFields(
+        question=models.TextField(_('question')),
+    )
+
+    class Meta:
+        verbose_name = _('job opening question')
+        verbose_name_plural = _('job opening questions')
+
+    def __str__(self):
+        return self.safe_translation_getter('question', str(self.pk))
+
+
 @python_2_unicode_compatible
 class JobApplication(models.Model):
     # FIXME: Gender is not the same as salutation.
     MALE = 'male'
     FEMALE = 'female'
 
+    DATA_RETENTION_YES = _('I agree that my data may be stored even beyond a specific vacancy and that I will be'
+                           ' informed about interesting job offers.')
+    DATA_RETENTION_NO = _('I would like my data to be deleted after the current application process.')
+
     SALUTATION_CHOICES = (
+        ('', _('Please select')),
         (MALE, _('Mr.')),
         (FEMALE, _('Mrs.')),
+    )
+
+    VALID_WORK_PERMIT_CHOICES = (
+        ('', _('Please select')),
+        ('yes', _('Yes')),
+        ('no', _('No'))
+    )
+
+    NOTICE_PERIOD_CHOICES = (
+        ('', _('Please select')),
+        ('1 month', _('1 month')),
+        ('2 months', _('2 months')),
+        ('3 months', _('3 months')),
+        ('6 months', _('6 months')),
+        ('none', pgettext_lazy('None in notice period', 'None')),
+        ('other', _('Other (please specify)'))
+    )
+
+    HOW_HEAR_ABOUT_US_CHOICES = (
+        ('', _('Please select')),
+        ('linkedin', _('LinkedIn')),
+        ('rahn website', _('RAHN Website')),
+        ('other', _('Other (please specify) ')),
+    )
+
+    DATA_RETENTION_CHOICES = (
+        ('Y', DATA_RETENTION_YES),
+        ('N', DATA_RETENTION_NO),
+    )
+
+    ABC_ANALYSIS_CHOICES = (
+        ('A', 'A'),
+        ('B', 'B'),
+        ('C', 'C'),
+    )
+
+    STATUS_CHOICES = (
+        ('rejection rahn ag', _('Rejection Rahn AG')),
+        ('rejection_candidate', _('Rejection Candidate')),
+        ('confirmation receiving', _('Confirmation of receiving')),
+        ('maybe later', _('Maybe later')),
+        ('contaact', _('Contact')),
+        ('1st interview', _('1st interview')),
+        ('2st interview', _('2nd interview')),
+        ('3st interview', _('3rd interview')),
+        ('missing document', _('Missing documents')),
+        ('employement contract', _('Employment Contract')),
+        ('shared with superior', _('Shared with superiors'))
     )
 
     job_opening = models.ForeignKey(
@@ -263,14 +371,85 @@ class JobApplication(models.Model):
         related_name='applications',
         on_delete=models.CASCADE
     )
-    salutation = models.CharField(_('salutation'), max_length=20, blank=True, choices=SALUTATION_CHOICES, default=MALE)
+    salutation = models.CharField(_('salutation'), max_length=20, null=True, blank=True, choices=SALUTATION_CHOICES)
     first_name = models.CharField(_('first name'), max_length=20)
     last_name = models.CharField(_('last name'), max_length=20)
     email = models.EmailField(_('email'), max_length=254)
-    cover_letter = models.TextField(_('cover letter'), blank=True)
+    street = models.CharField(_('street'), max_length=200, default='')
+    city = models.CharField(_('city'), max_length=50, default='')
+    zipcode = models.CharField(_('zip code'), max_length=10, default='')
+    country = CountryField(_('country'), null=True, blank=True)
+    nationality = models.CharField(_('nationality'), max_length=50, null=True, blank=True)
+    mobile_phone = models.CharField(_('phone number'), max_length=20, default='')
+    valid_work_permit = models.CharField(
+        _('valid work permit'),
+        choices=VALID_WORK_PERMIT_CHOICES,
+        max_length=3,
+        null=True,
+        blank=True
+    )
+    cover_letter_file = models.FileField(
+        _('cover letter'),
+        max_length=200,
+        blank=True,
+        null=True,
+        upload_to=jobs_attachment_upload_to,
+        storage=jobs_attachment_storage
+    )
+    cover_letter = models.TextField(_('cover letter'), null=True, blank=True)
+    answer_1 = models.TextField(_('answer 1'), null=True, blank=True)
+    answer_2 = models.TextField(_('answer 2'), null=True, blank=True)
+    answer_3 = models.TextField(_('answer 3'), null=True, blank=True)
+    expected_salary = models.TextField(_('expected salary'), blank=True, null=True)
+    notice_period = models.CharField(
+        _('notice period'),
+        choices=NOTICE_PERIOD_CHOICES,
+        max_length=10,
+        null=True,
+        blank=True
+    )
+    notice_period_other = models.CharField(
+        _('other (notice period)'), max_length=256, null=True, blank=True
+    )
+    how_hear_about_us = models.CharField(
+        _('how did you hear about us?'),
+        choices=HOW_HEAR_ABOUT_US_CHOICES,
+        max_length=12,
+        null=True,
+        blank=True
+    )
+    how_hear_about_us_other = models.CharField(
+        _('other (how did you hear about us)'), max_length=20, null=True, blank=True
+    )
+    data_retention = models.CharField(
+        _('data retention'),
+        choices=DATA_RETENTION_CHOICES,
+        max_length=1,
+        null=True,
+        blank=True
+    )
+    application_pool = models.BooleanField(_('application pool'), default=False)
+    abc_analysis = models.CharField(
+        _('abc analysis'),
+        choices=ABC_ANALYSIS_CHOICES,
+        max_length=1,
+        null=True,
+        blank=True
+    )
+    abc_analysis_explanation = models.CharField(_('abc analysis explanation'), max_length=200, null=True, blank=True)
+    status = models.CharField(_('status'), choices=STATUS_CHOICES, max_length=25, null=True, blank=True)
+    filled_by_rahn = models.BooleanField(_('filled by Rahn'), default=False)
     created = models.DateTimeField(_('created'), auto_now_add=True)
     is_rejected = models.BooleanField(_('rejected?'), default=False)
     rejection_date = models.DateTimeField(_('rejection date'), null=True, blank=True)
+    merged_pdf = models.FileField(
+        _('merged PDF of attachments'),
+        max_length=200,
+        blank=True,
+        null=True,
+        upload_to=jobs_attachment_upload_to,
+        storage=jobs_attachment_storage
+    )
 
     class Meta:
         ordering = ['-created']
@@ -283,6 +462,10 @@ class JobApplication(models.Model):
     def get_full_name(self):
         full_name = ' '.join([self.first_name, self.last_name])
         return full_name.strip()
+
+    @property
+    def business_area(self):
+        return self.job_opening.category
 
 
 @receiver(pre_delete, sender=JobApplication)
