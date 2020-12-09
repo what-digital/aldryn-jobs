@@ -419,7 +419,7 @@ class JobApplication(models.Model):
         blank=True
     )
     how_hear_about_us_other = models.CharField(
-        _('other (how did you hear about us)'), max_length=20, null=True, blank=True
+        _('other (how did you hear about us)'), max_length=50, null=True, blank=True
     )
     data_retention = models.CharField(
         _('data retention'),
