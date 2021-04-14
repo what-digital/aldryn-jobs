@@ -218,7 +218,7 @@ class JobOpeningAdmin(PlaceholderAdminMixin,
     def get_fieldsets(self, request, obj=None):
         fieldsets = [
             (_('Translatable fields'), {
-                'fields': ['title', 'slug', 'lead_in']
+                'fields': ['title', 'hide_link', 'slug', 'lead_in']
             }),
             (_('Options'), {
                 'fields': ['category', 'is_active', 'can_apply', 'country']
