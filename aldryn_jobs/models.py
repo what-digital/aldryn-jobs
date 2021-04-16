@@ -182,7 +182,8 @@ class JobOpening(TranslatedAutoSlugifyMixin,
                         'will change. Clear it to have the slug re-created.')),
         lead_in=HTMLField(
             _('short description'), blank=True,
-            help_text=_('This text will be displayed in lists.'))
+            help_text=_('This text will be displayed in lists.')),
+        hide_link=models.BooleanField(_('hide link in jobs list'), default=False)
     )
 
     content = PlaceholderField('Job Opening Content')
