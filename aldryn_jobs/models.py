@@ -351,6 +351,8 @@ class JobApplication(models.Model):
         ('A', 'A'),
         ('B', 'B'),
         ('C', 'C'),
+        ('AB', 'AB'),
+        ('BC', 'BC'),
     )
 
     STATUS_CHOICES = (
@@ -433,7 +435,7 @@ class JobApplication(models.Model):
     abc_analysis = models.CharField(
         _('abc analysis'),
         choices=ABC_ANALYSIS_CHOICES,
-        max_length=1,
+        max_length=2,
         null=True,
         blank=True
     )
@@ -467,6 +469,14 @@ class JobApplication(models.Model):
     @property
     def business_area(self):
         return self.job_opening.category
+
+    @property
+    def data_retention_value(self):
+        if self.data_retention == 'Y':
+            return _('Yes')
+        elif self.data_retention == 'N':
+            return _('No')
+        return ''
 
 
 @receiver(pre_delete, sender=JobApplication)
