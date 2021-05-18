@@ -349,10 +349,10 @@ class JobApplication(models.Model):
 
     ABC_ANALYSIS_CHOICES = (
         ('A', 'A'),
-        ('B', 'B'),
-        ('C', 'C'),
         ('AB', 'AB'),
+        ('B', 'B'),
         ('BC', 'BC'),
+        ('C', 'C'),
     )
 
     STATUS_CHOICES = (
