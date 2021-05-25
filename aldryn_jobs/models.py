@@ -175,6 +175,7 @@ class JobOpening(TranslatedAutoSlugifyMixin,
 
     translations = TranslatedFields(
         title=models.CharField(_('title'), max_length=255),
+        meta_description=models.CharField(_("meta description"), max_length=155, null=True, blank=True),
         slug=models.SlugField(
             _('slug'), max_length=255, blank=True,
             unique=False, db_index=False,
