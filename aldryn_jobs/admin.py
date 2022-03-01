@@ -194,7 +194,7 @@ class JobApplicationInline(LinkedRelatedInlineMixin, admin.TabularInline):
     fields = ['email', 'is_rejected', ]
     readonly_fields = ['email', 'is_rejected', ]
 
-    def has_add_permission(self, request):
+    def has_add_permission(self, request, obj):
         return False
 
 

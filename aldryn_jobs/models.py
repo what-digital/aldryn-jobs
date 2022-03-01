@@ -8,7 +8,6 @@ from django.urls import reverse, NoReverseMatch
 from django.db import models
 from django.db.models.signals import pre_delete, post_save
 from django.dispatch.dispatcher import receiver
-from django.utils.encoding import force_text, python_2_unicode_compatible
 from django.utils.timezone import now
 from django.utils.translation import ugettext_lazy as _, pgettext_lazy
 from django.contrib.auth.models import Group, User
@@ -78,7 +77,6 @@ JobApplicationFileField = partial(
 )
 
 
-@python_2_unicode_compatible
 class JobCategory(TranslatedAutoSlugifyMixin,
                   TranslationHelperMixin,
                   TranslatableModel):
@@ -158,7 +156,6 @@ class JobCategory(TranslatedAutoSlugifyMixin,
         return self.jobs.active().count()
 
 
-@python_2_unicode_compatible
 class JobOpening(TranslatedAutoSlugifyMixin,
                  TranslationHelperMixin,
                  TranslatableModel):
@@ -284,7 +281,6 @@ def set_vacancy_filled_date(sender, instance, update_fields, **kwargs):
         del instance._dirty
 
 
-@python_2_unicode_compatible
 class JobOpeningQuestion(TranslationHelperMixin, TranslatableModel):
     job_opening = models.ForeignKey(
         JobOpening,
@@ -304,7 +300,6 @@ class JobOpeningQuestion(TranslationHelperMixin, TranslatableModel):
         return self.safe_translation_getter('question', str(self.pk))
 
 
-@python_2_unicode_compatible
 class JobApplication(models.Model):
     # FIXME: Gender is not the same as salutation.
     MALE = 'male'
@@ -497,7 +492,6 @@ class JobApplicationAttachment(models.Model):
     file = JobApplicationFileField()
 
 
-@python_2_unicode_compatible
 class NewsletterSignup(models.Model):
     recipient = models.EmailField(_('recipient'), unique=True)
     default_language = models.CharField(_('language'), blank=True,
@@ -595,7 +589,6 @@ class NewsletterSignup(models.Model):
         return '{0} / {1}'.format(self.recipient, self.app_config)
 
 
-@python_2_unicode_compatible
 class NewsletterSignupUser(models.Model):
     signup = models.ForeignKey(
         NewsletterSignup,
@@ -615,7 +608,6 @@ class NewsletterSignupUser(models.Model):
         return 'link to user {0}'.format(self.get_full_name())
 
 
-@python_2_unicode_compatible
 class JobListPlugin(CMSPlugin):
     """ Store job list for JobListPlugin. """
 
@@ -641,7 +633,7 @@ class JobListPlugin(CMSPlugin):
                     "app configs will not appear."))
 
     def __str__(self):
-        return force_text(self.pk)
+        return str(self.pk)
 
     def get_job_openings(self, namespace):
         """
@@ -665,7 +657,6 @@ class JobListPlugin(CMSPlugin):
         self.jobopenings.set(oldinstance.jobopenings.all())
 
 
-@python_2_unicode_compatible
 class JobCategoriesPlugin(CMSPlugin):
 
     cmsplugin_ptr = models.OneToOneField(
