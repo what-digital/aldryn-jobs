@@ -3,9 +3,11 @@
 from __future__ import unicode_literals
 
 from django.conf import settings
+from django.contrib.admin.models import LogEntry, DELETION
+from django.contrib.contenttypes.models import ContentType
 from django.contrib import admin
 from django.contrib.sites.shortcuts import get_current_site
-from django.db import models
+from django.db import models, transaction
 from django.utils.safestring import mark_safe
 from django.utils.timezone import now
 from django.utils.translation import ugettext_lazy as _
@@ -48,12 +50,26 @@ def _send_rejection_email(modeladmin, request, queryset, lang_code='',
         )
         success_msg = _("Successfully sent {0} rejection email(s).").format(qs_count)
     else:
-        queryset.delete()
+        delete_objects_from_queryset(request, queryset)
         success_msg = _("Successfully deleted {0} application(s) and sent "
                         "rejection email.").format(qs_count)
 
     modeladmin.message_user(request, success_msg)
     return
+
+
+def delete_objects_from_queryset(request, queryset):
+    with transaction.atomic():
+        ct = ContentType.objects.get_for_model(queryset.model)
+        for obj in queryset:
+            LogEntry.objects.log_action(
+                user_id=request.user.id,
+                content_type_id=ct.pk,
+                object_id=obj.id,
+                object_repr=str(obj),
+                action_flag=DELETION,
+            )
+            obj.delete()
 
 
 class SendRejectionEmail(object):
