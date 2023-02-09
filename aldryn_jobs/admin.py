@@ -68,6 +68,7 @@ def delete_objects_from_queryset(request, queryset):
                 object_id=obj.id,
                 object_repr=str(obj),
                 action_flag=DELETION,
+                change_message=_('Deleted via "send rejection e-mail and delete application" action'),
             )
             obj.delete()
 
