@@ -476,10 +476,23 @@ class JobApplication(models.Model):
 
 
 @receiver(pre_delete, sender=JobApplication)
-def cleanup_attachments(sender, instance, **kwargs):
+def cleanup_files(sender, instance, **kwargs):
+    cleanup_attachments(instance)
+    cleanup_cover_letter_file(instance)
+    cleanup_merged_pdf(instance)
+
+def cleanup_attachments(instance):
     for attachment in instance.attachments.all():
-        if attachment:
+        if attachment and attachment.file:
             attachment.file.delete(False)
+
+def cleanup_cover_letter_file(instance):
+    if instance.cover_letter_file:
+        instance.cover_letter_file.delete(False)
+
+def cleanup_merged_pdf(instance):
+    if instance.merged_pdf:
+        instance.merged_pdf.delete(False)
 
 
 class JobApplicationAttachment(models.Model):
