@@ -9,6 +9,7 @@ from django.http import Http404, HttpResponsePermanentRedirect
 from django.shortcuts import redirect, render
 from django.db import transaction
 from django.contrib import messages
+from django.contrib.auth.models import User
 from django.utils.translation import (
     ugettext as _, get_language_from_request
 )
@@ -21,6 +22,7 @@ from aldryn_apphooks_config.utils import get_app_instance
 from menus.utils import set_language_changer
 from parler.views import TranslatableSlugMixin
 from emailit.api import send_mail
+
 
 from .forms import (
     JobApplicationForm,
@@ -36,6 +38,7 @@ from .models import (
     NewsletterSignupUser,
     JobsConfig
 )
+from pardot.api import Pardot
 
 
 class JobsBaseMixin(object):
@@ -464,7 +467,15 @@ class RegisterJobNewsletter(CreateView):
             NewsletterSignupUser.objects.create(
                 signup=self.object, user=user)
         self.object.send_newsletter_confirmation_email(request=self.request)
+        try:
+            self.update_pardot_prospect(self.object)
+        except:
+            pass
         return super(RegisterJobNewsletter, self).form_valid(form)
+
+    def update_pardot_prospect(self, signup):
+        pardot = Pardot()
+        pardot.newsletter_signup_by_email(signup.recipient)
 
     def form_invalid(self, form):
         context = self.get_context_data()
