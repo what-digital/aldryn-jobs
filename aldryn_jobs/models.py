@@ -7,9 +7,8 @@ from django.core.urlresolvers import reverse, NoReverseMatch
 from django.db import models
 from django.db.models.signals import pre_delete
 from django.dispatch.dispatcher import receiver
-from django.utils.encoding import force_text, python_2_unicode_compatible
 from django.utils.timezone import now
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from djangocms_text_ckeditor.fields import HTMLField
 from aldryn_apphooks_config.managers.parler import (
@@ -72,7 +71,6 @@ JobApplicationFileField = partial(
 )
 
 
-@python_2_unicode_compatible
 class JobCategory(TranslatedAutoSlugifyMixin,
                   TranslationHelperMixin,
                   TranslatableModel):
@@ -148,7 +146,6 @@ class JobCategory(TranslatedAutoSlugifyMixin,
         return self.jobs.active().count()
 
 
-@python_2_unicode_compatible
 class JobOpening(TranslatedAutoSlugifyMixin,
                  TranslationHelperMixin,
                  TranslatableModel):
@@ -271,7 +268,6 @@ class JobOpening(TranslatedAutoSlugifyMixin,
         return ' '.join(text_bits)
 
 
-@python_2_unicode_compatible
 class JobApplication(models.Model):
     job_opening = models.ForeignKey(JobOpening, related_name='applications')
     salutation = models.CharField(_('salutation'), max_length=20, blank=True)
@@ -309,7 +305,6 @@ class JobApplicationAttachment(models.Model):
     file = JobApplicationFileField()
 
 
-@python_2_unicode_compatible
 class JobListPlugin(CMSPlugin):
     """ Store job list for JobListPlugin. """
 
@@ -329,7 +324,7 @@ class JobListPlugin(CMSPlugin):
                     "app configs will not appear."))
 
     def __str__(self):
-        return force_text(self.pk)
+        return force_str(self.pk)
 
     def get_job_openings(self, namespace):
         """
@@ -353,7 +348,6 @@ class JobListPlugin(CMSPlugin):
         self.jobopenings = oldinstance.jobopenings.all()
 
 
-@python_2_unicode_compatible
 class JobCategoriesPlugin(CMSPlugin):
 
     cmsplugin_ptr = models.OneToOneField(

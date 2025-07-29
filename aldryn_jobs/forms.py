@@ -13,7 +13,7 @@ from django.core.exceptions import (
     ImproperlyConfigured,
 )
 from django.core.urlresolvers import reverse
-from django.utils.translation import ugettext
+from django.utils.translation import gettext
 
 from aldryn_apphooks_config.utils import setup_config
 from app_data import AppDataForm
@@ -229,7 +229,7 @@ class AppConfigPluginFormMixin(object):
         # config_model should be configured before using this mixin
         if self.config_model is None:
             raise ImproperlyConfigured(
-                ugettext('Cannot work properly when config class is '
+                gettext('Cannot work properly when config class is '
                          'not provided.'))
 
         super(AppConfigPluginFormMixin, self).__init__(*args, **kwargs)
@@ -255,7 +255,7 @@ class AppConfigPluginFormMixin(object):
             'namespace', flat=True)
 
         # prepare help messages
-        msg_not_published = ugettext(
+        msg_not_published = gettext(
             'Following {0} exists but either pages are not published, or '
             'there is no apphook. To use them - attach them or publish pages '
             'to which they are attached:'.format(self.config_model.__name__))
@@ -287,7 +287,7 @@ class AppConfigPluginFormMixin(object):
         namespace = self.cleaned_data['app_config'].namespace
         if not namespace_is_apphooked(namespace):
             raise ValidationError(
-                ugettext(
+                gettext(
                     'Seems that selected Job config is not plugged to any '
                     'page, or maybe that page is not published.'
                     'Please select Job config that is being used.'),

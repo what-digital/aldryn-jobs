@@ -5,7 +5,7 @@ from os.path import splitext
 from cms.plugin_rendering import ContentRenderer
 from aldryn_search.utils import strip_tags
 
-from django.utils.encoding import force_text
+from django.utils.encoding import force_str
 from django.utils.text import smart_split
 from django.db import models
 from django.core.urlresolvers import reverse, NoReverseMatch
@@ -84,7 +84,7 @@ def render_plugin(request, plugin_instance):
 
 
 def get_cleaned_bits(data):
-    decoded = force_text(data)
+    decoded = force_str(data)
     stripped = strip_tags(decoded)
     return smart_split(stripped)
 

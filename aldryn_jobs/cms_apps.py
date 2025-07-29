@@ -2,7 +2,7 @@
 
 from __future__ import unicode_literals
 
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from aldryn_jobs.models import JobsConfig
 from aldryn_apphooks_config.app_base import CMSConfigApp
