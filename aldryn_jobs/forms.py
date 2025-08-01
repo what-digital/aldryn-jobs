@@ -12,7 +12,7 @@ from django.core.exceptions import (
     ValidationError,
     ImproperlyConfigured,
 )
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.utils.translation import gettext
 
 from aldryn_apphooks_config.utils import setup_config

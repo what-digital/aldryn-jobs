@@ -8,7 +8,7 @@ from django.conf import settings
 from django.contrib.auth.models import User
 from django.contrib.auth.hashers import make_password
 from django.core.cache import cache
-from django.core.urlresolvers import clear_url_caches
+from django.urls import clear_url_caches
 from django.utils.timezone import get_current_timezone
 from django.utils.translation import override
 

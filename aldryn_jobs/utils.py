@@ -8,7 +8,8 @@ from aldryn_search.utils import strip_tags
 from django.utils.encoding import force_str
 from django.utils.text import smart_split
 from django.db import models
-from django.core.urlresolvers import reverse, NoReverseMatch
+from django.urls.exceptions import NoReverseMatch
+from django.urls import reverse
 from django.utils.text import get_valid_filename as get_valid_filename_django
 from django.template.defaultfilters import slugify
 from django.conf import settings
