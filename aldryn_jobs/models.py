@@ -310,7 +310,7 @@ class JobListPlugin(CMSPlugin):
     """ Store job list for JobListPlugin. """
 
     cmsplugin_ptr = models.OneToOneField(
-        CMSPlugin, related_name='aldryn_jobs_joblistplugin', parent_link=True)
+        CMSPlugin, related_name='aldryn_jobs_joblistplugin', parent_link=True, on_delete=models.CASCADE)
 
     app_config = models.ForeignKey(
         JobsConfig,
@@ -353,7 +353,7 @@ class JobCategoriesPlugin(CMSPlugin):
 
     cmsplugin_ptr = models.OneToOneField(
         CMSPlugin, related_name='aldryn_jobs_jobcategoriesplugin',
-        parent_link=True)
+        parent_link=True, on_delete=models.CASCADE)
 
     app_config = models.ForeignKey(
         JobsConfig,
