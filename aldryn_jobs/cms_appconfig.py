@@ -2,7 +2,7 @@
 
 from __future__ import unicode_literals
 
-from django.utils.translation import ugettext as _
+from django.utils.translation import gettext as _
 
 from aldryn_apphooks_config.models import AppHookConfig
 from cms.models.fields import PlaceholderField

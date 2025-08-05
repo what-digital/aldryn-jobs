@@ -11,7 +11,7 @@ from django.db import transaction
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.utils.translation import (
-    ugettext as _, get_language_from_request
+    gettext as _, get_language_from_request
 )
 
 from django.views.generic import CreateView, DetailView, ListView, TemplateView, View

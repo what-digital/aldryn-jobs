@@ -3,7 +3,7 @@
 from __future__ import unicode_literals
 
 from django.urls import NoReverseMatch
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from cms.menu_bases import CMSAttachMenu
 from cms.utils import get_language_from_request
